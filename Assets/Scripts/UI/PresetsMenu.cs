@@ -285,9 +285,9 @@ public class PresetsMenu : MonoBehaviour
         root.optionsMenu.UpdateValues();
     }
 
-    public void OnB4157S40804DClicked()
+    public void OnB4163S40804DClicked()
     {
-        root.gameBehaviour.game.B4157S40804DRules();
+        root.gameBehaviour.game.B4163S40804DRules();
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }

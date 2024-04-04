@@ -170,9 +170,9 @@ public static class Presets
         gol.initialPercentAlive = 0.3f;
     }
 
-    public static void B4157S40804DRules(this GameOfLife gol)
+    public static void B4163S40804DRules(this GameOfLife gol)
     {
-        gol.birth = new int[] { 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57 };
+        gol.birth = new int[] { 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63 };
         gol.survival = new int[] { 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80 };
         gol.wrap = true;
         gol.initialPercentAlive = 0.5f;
