@@ -359,7 +359,7 @@ public class GameOfLife
             UnityEngine.Random.InitState(seed);
             seed = 0;
         }
-        currentBehavior = "Random " + (initialPercentAlive * 100).ToString("#0.#") + "%";
+        currentBehavior = "Random " + (initialPercentAlive * 100).ToString("#0.##") + "%";
         for (int i = 0; i < _dimensions.x; ++i)
         {
             for (int j = 0; j < _dimensions.y; ++j)
