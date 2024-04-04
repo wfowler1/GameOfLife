@@ -43,6 +43,11 @@ public class UIRoot : MonoBehaviour
         .Append("\nBehavior: ")
         .Append(gameBehaviour.game.currentBehavior);
         rulesText.text = sb.ToString();
+
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Z))
+        {
+            GetComponent<Canvas>().enabled = !GetComponent<Canvas>().enabled;
+        }
     }
 
     public void UpdateStates()
