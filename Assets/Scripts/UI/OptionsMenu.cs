@@ -95,7 +95,7 @@ public class OptionsMenu : MonoBehaviour
                     showedWarning = true;
                 }
             },
-            "This will create " + newCubes + " new cells and bring the total to " + newCellsAmt + ". This may take a while to do and cause poor performance. Continue?",
+            "This will create " + newCubes.ToString("###,##0") + " new cells and bring the total to " + newCellsAmt.ToString("###,##0") + ". This may take a while to do and cause poor performance. Continue?",
             "Yes", "No", null);
         }
         else

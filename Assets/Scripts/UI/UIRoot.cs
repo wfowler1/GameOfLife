@@ -23,13 +23,13 @@ public class UIRoot : MonoBehaviour
     {
         StringBuilder sb = new StringBuilder();
         sb.Append("Dimensions: ")
-        .Append(gameBehaviour.game.width)
+        .Append(gameBehaviour.game.width.ToString("###,##0"))
         .Append("x")
-        .Append(gameBehaviour.game.height)
+        .Append(gameBehaviour.game.height.ToString("###,##0"))
         .Append("x")
-        .Append(gameBehaviour.game.depth)
+        .Append(gameBehaviour.game.depth.ToString("###,##0"))
         .Append("x")
-        .Append(gameBehaviour.game.colors)
+        .Append(gameBehaviour.game.colors.ToString("###,##0"))
         .Append("\nRules:\n B")
         .Append(string.Join(',', gameBehaviour.game.birth))
         .Append("\n S")
@@ -37,9 +37,9 @@ public class UIRoot : MonoBehaviour
         .Append("\nWrapping: ")
         .Append(gameBehaviour.game.wrap ? "Yes" : "No")
         .Append("\nAlive: ")
-        .Append(gameBehaviour.game.numAlive)
+        .Append(gameBehaviour.game.numAlive.ToString("###,##0"))
         .Append("\nGeneration: ")
-        .Append(gameBehaviour.game.tickNum)
+        .Append(gameBehaviour.game.tickNum.ToString("###,##0"))
         .Append("\nBehavior: ")
         .Append(gameBehaviour.game.currentBehavior);
         rulesText.text = sb.ToString();
