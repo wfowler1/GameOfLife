@@ -148,7 +148,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnLifeClicked()
     {
         root.gameBehaviour.game.ConwayRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -156,7 +155,6 @@ public class PresetsMenu : MonoBehaviour
     public void On34LifeClicked()
     {
         root.gameBehaviour.game.ThreeFourRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -164,7 +162,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnSeedsClicked()
     {
         root.gameBehaviour.game.SeedsRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -172,7 +169,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnLifeWithoutDeathClicked()
     {
         root.gameBehaviour.game.LifeWithoutDeathRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -180,7 +176,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnHighLifeClicked()
     {
         root.gameBehaviour.game.HighLifeRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -188,7 +183,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnAssimilationClicked()
     {
         root.gameBehaviour.game.AssimilationRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -196,7 +190,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnFredkinClicked()
     {
         root.gameBehaviour.game.FredkinRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -204,7 +197,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnAnnealClicked()
     {
         root.gameBehaviour.game.AnnealRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -212,7 +204,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnMorleyClicked()
     {
         root.gameBehaviour.game.MorleyRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -220,7 +211,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnRiversClicked()
     {
         root.gameBehaviour.game.RiversRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -228,7 +218,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnCitiesClicked()
     {
         root.gameBehaviour.game.CitiesRules();
-        root.gameCamera.distance = 64;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -236,7 +225,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnBays5766Clicked()
     {
         root.gameBehaviour.game.Bays5766Rules();
-        root.gameCamera.distance = 32 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -244,7 +232,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnBays4555Clicked()
     {
         root.gameBehaviour.game.Bays4555Rules();
-        root.gameCamera.distance = 32 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -252,7 +239,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnBays10211021Clicked()
     {
         root.gameBehaviour.game.Bays10211021Rules();
-        root.gameCamera.distance = 32 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -260,7 +246,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnB78S5678Clicked()
     {
         root.gameBehaviour.game.B78S5678Rules();
-        root.gameCamera.distance = 32 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -268,7 +253,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnWallaceClicked()
     {
         root.gameBehaviour.game.Wallace1Rules();
-        root.gameCamera.distance = 32 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -276,7 +260,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnWallace2Clicked()
     {
         root.gameBehaviour.game.Wallace2Rules();
-        root.gameCamera.distance = 32 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -284,7 +267,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnEvansClicked()
     {
         root.gameBehaviour.game.EvansRules();
-        root.gameCamera.distance = 19 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -292,7 +274,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnLifeWithoutDeath3DClicked()
     {
         root.gameBehaviour.game.LifeWithoutDeath3DRules();
-        root.gameCamera.distance = 32 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -300,7 +281,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnB2123S9224DClicked()
     {
         root.gameBehaviour.game.B2123S9224DRules();
-        root.gameCamera.distance = 16 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
@@ -308,7 +288,6 @@ public class PresetsMenu : MonoBehaviour
     public void OnB4157S40804DClicked()
     {
         root.gameBehaviour.game.B4157S40804DRules();
-        root.gameCamera.distance = 16 * 1.6f;
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
     }
