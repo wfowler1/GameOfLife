@@ -111,7 +111,7 @@ public static class Presets
         gol.birth = new int[] { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
         gol.survival = new int[] { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
         gol.wrap = true;
-        gol.initialPercentAlive = 0.27f;
+        gol.initialPercentAlive = 0.2675f;
     }
 
     public static void BaysB5S47Rules(this GameOfLife gol)
@@ -162,12 +162,12 @@ public static class Presets
         gol.initialPercentAlive = 0.05f;
     }
 
-    public static void B2123S9224DRules(this GameOfLife gol)
+    public static void B2123S10224DRules(this GameOfLife gol)
     {
         gol.birth = new int[] { 21, 22, 23 };
-        gol.survival = new int[] { 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
-        gol.wrap = true;
-        gol.initialPercentAlive = 0.35f;
+        gol.survival = new int[] { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
+        gol.wrap = false;
+        gol.initialPercentAlive = 0.3f;
     }
 
     public static void B4157S40804DRules(this GameOfLife gol)
