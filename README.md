@@ -7,7 +7,7 @@ By default, uses standard ruleset for the original Game of Life by John Conway (
 * Right-click and drag to rotate board.
 * Middle-click and drag to move board.
 * Alt+Z to toggle the UI on/off.
-* Alt+Ender to toggle windowed mode.
+* Alt+Enter to toggle windowed mode.
 * Alt+F4 to exit program immediately.
 
 ### Limitations
