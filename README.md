@@ -4,9 +4,11 @@ An implementation of Conway's Game of Life in Unity engine, using cube mesh rend
 By default, uses standard ruleset for the original Game of Life by John Conway (notated B3/S23). The user may also enter their own rulesets as well, or use one of many presets. Also capable of cellular automata simulations in three and four dimensions.
 
 ### Controls
-Right-click and drag to rotate board.
-Middle-click and drag to move board.
-Alt+Z to toggle the UI on/off.
+* Right-click and drag to rotate board.
+* Middle-click and drag to move board.
+* Alt+Z to toggle the UI on/off.
+* Alt+Ender to toggle windowed mode.
+* Alt+F4 to exit program immediately.
 
 ### Limitations
 * Currently there is no way to rewind the state of the board.
@@ -19,4 +21,3 @@ Alt+Z to toggle the UI on/off.
 * [Bays, Carter - A Note About the Discovery of Many New Rules for the Game of Three-Dimensional Life (2006)](https://content.wolfram.com/sites/13/2023/02/16-4-7.pdf). Additional explorations of 3D Life and interesting rulesets, and designs for gliders in different 3D rulesets.
 * [Wallace, Evan - Conway's Game of Life in 3D](https://cs.brown.edu/courses/cs195v/projects/life/edwallac/index.html). Brief exploration of 3D Life and one of my favorite rulesets, I call "Wallace 2". Inspiration for a similar 4D ruleset.
 * [Evans, Chris - Building Conway's Game of Life in 3D (2020)](https://chrisevans9629.github.io/blog/2020/07/27/game-of-life). Another ruleset.
-* 
