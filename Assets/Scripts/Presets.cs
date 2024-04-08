@@ -76,7 +76,7 @@ public static class Presets
 
     public static void RiversRules(this GameOfLife gol)
     {
-        gol.birth = new int[] { 5, 6, 7 };
+        gol.birth = new int[] { 5, 6, 7, 8 };
         gol.survival = new int[] { 4, 5, 6, 7, 8 };
         gol.wrap = true;
         gol.initialPercentAlive = 0.5f;
