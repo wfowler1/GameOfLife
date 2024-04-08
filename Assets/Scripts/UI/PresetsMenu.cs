@@ -127,6 +127,13 @@ public class PresetsMenu : MonoBehaviour
         button.colors = colors;
     }
 
+    private void HideMenuAndDoUpdates()
+    {
+        SetMenuState(false);
+        root.optionsMenu.UpdateValues();
+        root.gameBehaviour.forceFullUpdateNextTick = true;
+    }
+
     public void OnNew2DClicked()
     {
         root.gameBehaviour.Resize(64, 64, 1, 1);
@@ -148,148 +155,133 @@ public class PresetsMenu : MonoBehaviour
     public void OnLifeClicked()
     {
         root.gameBehaviour.game.ConwayRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void On34LifeClicked()
     {
         root.gameBehaviour.game.ThreeFourRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnSeedsClicked()
     {
         root.gameBehaviour.game.SeedsRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnLifeWithoutDeathClicked()
     {
         root.gameBehaviour.game.LifeWithoutDeathRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnHighLifeClicked()
     {
         root.gameBehaviour.game.HighLifeRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnAssimilationClicked()
     {
         root.gameBehaviour.game.AssimilationRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnFredkinClicked()
     {
         root.gameBehaviour.game.FredkinRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnAnnealClicked()
     {
         root.gameBehaviour.game.AnnealRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnMorleyClicked()
     {
         root.gameBehaviour.game.MorleyRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnRiversClicked()
     {
         root.gameBehaviour.game.RiversRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnCitiesClicked()
     {
         root.gameBehaviour.game.CitiesRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnBays5766Clicked()
     {
         root.gameBehaviour.game.Bays5766Rules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnBays4555Clicked()
     {
         root.gameBehaviour.game.Bays4555Rules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnBays10211021Clicked()
     {
         root.gameBehaviour.game.Bays10211021Rules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
+    }
+
+    public void OnB5S47Clicked()
+    {
+        root.gameBehaviour.game.BaysB5S47Rules();
+        HideMenuAndDoUpdates();
     }
 
     public void OnB78S5678Clicked()
     {
         root.gameBehaviour.game.B78S5678Rules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnWallaceClicked()
     {
         root.gameBehaviour.game.Wallace1Rules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnWallace2Clicked()
     {
         root.gameBehaviour.game.Wallace2Rules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnEvansClicked()
     {
         root.gameBehaviour.game.EvansRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnLifeWithoutDeath3DClicked()
     {
         root.gameBehaviour.game.LifeWithoutDeath3DRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnB2123S10224DClicked()
     {
         root.gameBehaviour.game.B2123S10224DRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnB4163S40804DClicked()
     {
         root.gameBehaviour.game.B4163S40804DRules();
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnSimpleGliderClicked()
@@ -297,8 +289,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.SimpleGlider();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 20 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnSpaceShipsClicked()
@@ -306,8 +297,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.SpaceShips();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 20 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnPulsarClicked()
@@ -315,8 +305,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.Pulsar();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 17 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnPentaDecathlonClicked()
@@ -324,8 +313,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.PentaDecathlon();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 18 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnGosperGunClicked()
@@ -333,8 +321,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.GosperGun();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 23 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnAcornClicked()
@@ -342,8 +329,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.Acorn();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 214;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnSimpleGlider3DClicked()
@@ -351,8 +337,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.SimpleGlider3D();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 32 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void On4555GliderClicked()
@@ -360,8 +345,7 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.Glider4555();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 32 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 
     public void OnB5S47GliderClicked()
@@ -369,7 +353,6 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.GliderB5S47();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 32 * 1.6f;
-        SetMenuState(false);
-        root.optionsMenu.UpdateValues();
+        HideMenuAndDoUpdates();
     }
 }

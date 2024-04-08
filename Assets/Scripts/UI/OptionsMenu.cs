@@ -114,11 +114,13 @@ public class OptionsMenu : MonoBehaviour
     public void OnBirthFieldDoneEditing()
     {
         root.gameBehaviour.game.birth = ParseRulesFieldNumbers(rulesBirthField.text);
+        root.gameBehaviour.forceFullUpdateNextTick = true;
     }
 
     public void OnSurvivalFieldDoneEditing()
     {
         root.gameBehaviour.game.survival = ParseRulesFieldNumbers(rulesSurvivalField.text);
+        root.gameBehaviour.forceFullUpdateNextTick = true;
     }
 
     public void OnRandomizationFieldDoneEditing()
@@ -148,6 +150,7 @@ public class OptionsMenu : MonoBehaviour
     public void OnWrappingToggleChanged()
     {
         root.gameBehaviour.game.wrap = wrappingToggle.isOn;
+        root.gameBehaviour.forceFullUpdateNextTick = true;
     }
 
     public void OnQuitClicked()

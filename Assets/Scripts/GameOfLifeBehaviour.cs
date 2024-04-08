@@ -12,6 +12,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
     private float tickTimer = 0;
     public bool paused = true;
     public float tickTime = 0.1f;
+    public bool forceFullUpdateNextTick = false;
 
     /// <summary>
     /// Start is called before the first frame update
@@ -57,8 +58,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
     public void Tick()
     {
-        game.Tick();
+        game.Tick(forceFullUpdateNextTick);
         UpdateFromChanges();
+        forceFullUpdateNextTick = false;
     }
 
     public void Randomize(int seed = 0)

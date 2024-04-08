@@ -199,6 +199,7 @@ MonoBehaviour:
   cell: {fileID: 984924509788648406, guid: 8954223edf703a141863e2b1ab46e1d7, type: 3}
   paused: 1
   tickTime: 0.1
+  forceFullUpdateNextTick: 0
 --- !u!1001 &979111087657523815
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -118,7 +118,12 @@ public class GameOfLife
     {
         ++tickNum;
 
-        if (numChanges == 0 && !force)
+        if (force)
+        {
+            numChanges = -1;
+        }
+
+        if (numChanges == 0)
         {
             return;
         }
@@ -169,8 +174,10 @@ public class GameOfLife
 
     private void GetNumLiveNeighborsForAll()
     {
-        if (numChanges > numAlive)
+        if (numChanges > numAlive || numChanges < 0)
         {
+            numChanges = 0;
+            // Do a full neighbor count from scratch
             Array.Clear(neighborCounts, 0, neighborCounts.Length);
 
             for (int i = 0; i < _dimensions.x; ++i)
@@ -192,6 +199,7 @@ public class GameOfLife
         }
         else
         {
+            // Only apply changes to neighbors from last tick
             for (int i = 0; i < numChanges; ++i)
             {
                 Vector4i cell = changes[i];
