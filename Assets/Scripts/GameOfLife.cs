@@ -176,41 +176,50 @@ public class GameOfLife
     {
         if (numChanges > numAlive || numChanges < 0)
         {
-            numChanges = 0;
-            // Do a full neighbor count from scratch
-            Array.Clear(neighborCounts, 0, neighborCounts.Length);
+            CountLiveNeighborsForAll();
+        }
+        else
+        {
+            ApplyNeighborChangesForAll();
+        }
 
-            for (int i = 0; i < _dimensions.x; ++i)
+        numChanges = 0;
+    }
+
+    private void CountLiveNeighborsForAll()
+    {
+        // Do a full neighbor count from scratch
+        Array.Clear(neighborCounts, 0, neighborCounts.Length);
+
+        for (int i = 0; i < _dimensions.x; ++i)
+        {
+            for (int j = 0; j < _dimensions.y; ++j)
             {
-                for (int j = 0; j < _dimensions.y; ++j)
+                for (int k = 0; k < _dimensions.z; ++k)
                 {
-                    for (int k = 0; k < _dimensions.z; ++k)
+                    for (int l = 0; l < _dimensions.w; ++l)
                     {
-                        for (int l = 0; l < _dimensions.w; ++l)
+                        if (liveCells[i, j, k, l])
                         {
-                            if (liveCells[i, j, k, l])
-                            {
-                                AddToNeighbors(i, j, k, l, false);
-                            }
+                            AddToNeighbors(i, j, k, l, false);
                         }
                     }
                 }
             }
         }
-        else
+    }
+
+    private void ApplyNeighborChangesForAll()
+    {
+        // Only apply changes to neighbors from last tick
+        for (int i = 0; i < numChanges; ++i)
         {
-            // Only apply changes to neighbors from last tick
-            for (int i = 0; i < numChanges; ++i)
-            {
-                Vector4i cell = changes[i];
-                AddToNeighbors(cell.x, cell.y, cell.z, cell.w, !liveCells[cell.x, cell.y, cell.z, cell.w]);
-            }
+            Vector4i cell = changes[i];
+            AddToNeighbors(cell.x, cell.y, cell.z, cell.w, !liveCells[cell.x, cell.y, cell.z, cell.w]);
         }
 
         Array.Clear(changes, 0, numChanges);
-        numChanges = 0;
     }
-
 
     private int[] neighborX = new int[] { 0, 0, 0 };
     private int[] neighborY = new int[] { 0, 0, 0 };
