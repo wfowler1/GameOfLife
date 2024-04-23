@@ -362,11 +362,16 @@ public class GameOfLife
     public void Randomize(int seed = 0)
     {
         Clear();
+        Random rng;
         if (seed != 0)
         {
-            UnityEngine.Random.InitState(seed);
-            seed = 0;
+            rng = new Random(seed);
         }
+        else
+        {
+            rng = new Random();
+        }
+
         currentBehavior = "Random " + (initialPercentAlive * 100).ToString("#0.##") + "%";
         for (int i = 0; i < _dimensions.x; ++i)
         {
@@ -376,7 +381,7 @@ public class GameOfLife
                 {
                     for (int l = 0; l < _dimensions.w; ++l)
                     {
-                        bool alive = UnityEngine.Random.value <= initialPercentAlive;
+                        bool alive = rng.NextDouble() <= initialPercentAlive;
                         SetState(alive, i, j, k, l);
                     }
                 }
@@ -408,5 +413,17 @@ public class GameOfLife
             numAlive += alive ? 1 : -1;
             changes[numChanges++] = new Vector4i() { x = x, y = y, z = z, w = w };
         }
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void ToggleState(Vector4i cell)
+    {
+        ToggleState(cell.x, cell.y, cell.z, cell.w);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void ToggleState(int x, int y, int z, int w)
+    {
+        SetState(!liveCells[x, y, z, w], x, y, z, w);
     }
 }
