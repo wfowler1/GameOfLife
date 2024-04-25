@@ -355,4 +355,12 @@ public class PresetsMenu : MonoBehaviour
         root.gameCamera.distance = 32 * 1.6f;
         HideMenuAndDoUpdates();
     }
+
+    public void OnEvansGliderClicked()
+    {
+        root.gameBehaviour.game.EvansGlider();
+        root.gameBehaviour.Refresh();
+        root.gameCamera.distance = 16 * 1.6f;
+        HideMenuAndDoUpdates();
+    }
 }

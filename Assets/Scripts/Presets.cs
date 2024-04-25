@@ -405,7 +405,7 @@ public static class Presets
         gol.SetStateByAxes(true, xAxis, 1, yAxis, 9, zAxis, 2);
         gol.SetStateByAxes(true, xAxis, 2, yAxis, 9, zAxis, 2);
 
-        gol.currentBehavior = "Simple glider 3D";
+        gol.currentBehavior = "Simple Glider 3D";
     }
 
     public static void Glider4555(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
@@ -520,6 +520,24 @@ public static class Presets
         gol.SetStateByAxes(true, xAxis, 3, yAxis, 14, zAxis, 5);
 
         gol.currentBehavior = "B5/S4,7 Glider";
+    }
+
+    public static void EvansGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
+    {
+        gol.EvansRules();
+        gol.SetDimensions(xAxis, 5, yAxis, 16, zAxis, 5);
+        gol.wrap = true;
+
+        gol.Clear();
+
+        gol.SetStateByAxes(true, xAxis, 1, yAxis, 0, zAxis, 1);
+        gol.SetStateByAxes(true, xAxis, 1, yAxis, 0, zAxis, 2);
+        gol.SetStateByAxes(true, xAxis, 2, yAxis, 0, zAxis, 1);
+        gol.SetStateByAxes(true, xAxis, 2, yAxis, 0, zAxis, 2);
+        gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 3);
+        gol.SetStateByAxes(true, xAxis, 3, yAxis, 2, zAxis, 2);
+
+        gol.currentBehavior = "Evans Glider";
     }
 
     private static void SetDimensions(this GameOfLife gol, int xAxis, int x, int yAxis = -1, int y = 1, int zAxis = -1, int z = 1, int wAxis = -1, int w = 1)
