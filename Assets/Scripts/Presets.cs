@@ -1,5 +1,3 @@
-using UnityEngine.Animations;
-
 public static class Presets
 {
     public static void ConwayRules(this GameOfLife gol)
@@ -7,7 +5,7 @@ public static class Presets
         gol.birth = new int[] { 3 };
         gol.survival = new int[] { 2, 3 };
         gol.wrap = false;
-        gol.initialPercentAlive = 0.5f;
+        gol.initialPercentAlive = 0.4f;
     }
 
     public static void LifeWithoutDeathRules(this GameOfLife gol)
@@ -15,7 +13,7 @@ public static class Presets
         gol.birth = new int[] { 3 };
         gol.survival = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
         gol.wrap = false;
-        gol.initialPercentAlive = 0.025f;
+        gol.initialPercentAlive = 0.0225f;
     }
 
     public static void HighLifeRules(this GameOfLife gol)
@@ -23,7 +21,7 @@ public static class Presets
         gol.birth = new int[] { 3, 6 };
         gol.survival = new int[] { 2, 3 };
         gol.wrap = false;
-        gol.initialPercentAlive = 0.2f;
+        gol.initialPercentAlive = 0.4f;
     }
 
     public static void AssimilationRules(this GameOfLife gol)
@@ -31,7 +29,7 @@ public static class Presets
         gol.birth = new int[] { 3, 4, 5 };
         gol.survival = new int[] { 4, 5, 6, 7 };
         gol.wrap = true;
-        gol.initialPercentAlive = 0.2f;
+        gol.initialPercentAlive = 0.16f;
     }
 
     public static void FredkinRules(this GameOfLife gol)
@@ -55,7 +53,7 @@ public static class Presets
         gol.birth = new int[] { 3, 4 };
         gol.survival = new int[] { 3, 4 };
         gol.wrap = false;
-        gol.initialPercentAlive = 0.15f;
+        gol.initialPercentAlive = 0.1f;
     }
 
     public static void MorleyRules(this GameOfLife gol)
@@ -63,7 +61,7 @@ public static class Presets
         gol.birth = new int[] { 3, 6, 8 };
         gol.survival = new int[] { 2, 4, 5 };
         gol.wrap = true;
-        gol.initialPercentAlive = 0.5f;
+        gol.initialPercentAlive = 0.4f;
     }
 
     public static void AnnealRules(this GameOfLife gol)
@@ -95,7 +93,7 @@ public static class Presets
         gol.birth = new int[] { 6 };
         gol.survival = new int[] { 5, 6, 7 };
         gol.wrap = true;
-        gol.initialPercentAlive = 0.2f;
+        gol.initialPercentAlive = 0.25f;
     }
 
     public static void Bays4555Rules(this GameOfLife gol)
@@ -103,7 +101,7 @@ public static class Presets
         gol.birth = new int[] { 5 };
         gol.survival = new int[] { 4, 5 };
         gol.wrap = true;
-        gol.initialPercentAlive = 0.15f;
+        gol.initialPercentAlive = 0.22f;
     }
 
     public static void Bays10211021Rules(this GameOfLife gol)
@@ -151,7 +149,7 @@ public static class Presets
         gol.birth = new int[] { 4 };
         gol.survival = new int[] { 5, 6 };
         gol.wrap = true;
-        gol.initialPercentAlive = 0.25f;
+        gol.initialPercentAlive = 0.025f;
     }
 
     public static void LifeWithoutDeath3DRules(this GameOfLife gol)
