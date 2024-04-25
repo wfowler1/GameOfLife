@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameOfLifeBehaviour : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
     
     private Renderer[,,,] cells;
     private ObjectPool cellPool;
+    private List<Material> materials;
     private float tickTimer = 0;
     public bool paused = true;
     public float tickTime = 0.1f;
@@ -158,7 +160,37 @@ public class GameOfLifeBehaviour : MonoBehaviour
             }
         }
 
+        // Set up materials
+        SetUpMaterials();
+
         // Set up new cells
+        SetUpCells();
+    }
+
+    private void SetUpMaterials()
+    {
+        if (materials == null)
+        {
+            materials = new List<Material>();
+        }
+
+        Shader shader = Shader.Find("Standard");
+        for (int i = 0; i < game.colors; ++i)
+        {
+            if (materials.Count <= i)
+            {
+                Material material = new Material(shader);
+                materials.Add(material);
+                materials[i].SetFloat("_Metallic", 1);
+                materials[i].SetFloat("_Glossiness", 0.1f);
+            }
+        }
+
+        ChangeColors();
+    }
+
+    private void SetUpCells()
+    {
         for (int i = 0; i < game.width; ++i)
         {
             for (int j = 0; j < game.height; ++j)
@@ -183,7 +215,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
                         // Apply some rotation as well to prevent Z-fighting
                         cell.transform.Rotate(Vector3.one, l * 120 / (float)game.colors);
                         MeshRenderer renderer = cell.GetComponent<MeshRenderer>();
-                        renderer.material.SetColor("_Color", Color.HSVToRGB((_hue + (l / (float)game.colors)) % 1f, 1, 1));
+                        renderer.material = materials[l];
 
                         cell.isStatic = true;
                         renderer.enabled = game.liveCells[i, j, k, l];
@@ -196,18 +228,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
     private void ChangeColors()
     {
-        for (int i = 0; i < game.width; ++i)
+        for (int i = 0; i < materials.Count; ++i)
         {
-            for (int j = 0; j < game.height; ++j)
-            {
-                for (int k = 0; k < game.depth; ++k)
-                {
-                    for (int l = 0; l < game.colors; ++l)
-                    {
-                        cells[i, j, k, l].material.SetColor("_Color", Color.HSVToRGB((_hue + (l / (float)game.colors)) % 1f, 1, 1));
-                    }
-                }
-            }
+            materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)game.colors)) % 1f, 1, 1));
         }
     }
 }
