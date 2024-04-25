@@ -13,6 +13,20 @@ public class GameOfLifeBehaviour : MonoBehaviour
     public bool paused = true;
     public float tickTime = 0.1f;
     public bool forceFullUpdateNextTick = false;
+    private float _hue = 0.333f;
+
+    public float Hue
+    {
+        get
+        {
+            return _hue;
+        }
+        set
+        {
+            _hue = value;
+            ChangeColors();
+        }
+    }
 
     /// <summary>
     /// Start is called before the first frame update
@@ -169,11 +183,28 @@ public class GameOfLifeBehaviour : MonoBehaviour
                         // Apply some rotation as well to prevent Z-fighting
                         cell.transform.Rotate(Vector3.one, l * 120 / (float)game.colors);
                         MeshRenderer renderer = cell.GetComponent<MeshRenderer>();
-                        renderer.material.SetColor("_Color", Color.HSVToRGB((l + 0.333f) / (float)game.colors, 1, 1));
+                        renderer.material.SetColor("_Color", Color.HSVToRGB((_hue + (l / (float)game.colors)) % 1f, 1, 1));
 
                         cell.isStatic = true;
                         renderer.enabled = game.liveCells[i, j, k, l];
                         cells[i, j, k, l] = renderer;
+                    }
+                }
+            }
+        }
+    }
+
+    private void ChangeColors()
+    {
+        for (int i = 0; i < game.width; ++i)
+        {
+            for (int j = 0; j < game.height; ++j)
+            {
+                for (int k = 0; k < game.depth; ++k)
+                {
+                    for (int l = 0; l < game.colors; ++l)
+                    {
+                        cells[i, j, k, l].material.SetColor("_Color", Color.HSVToRGB((_hue + (l / (float)game.colors)) % 1f, 1, 1));
                     }
                 }
             }

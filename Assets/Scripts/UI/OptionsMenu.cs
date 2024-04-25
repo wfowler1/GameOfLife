@@ -12,6 +12,8 @@ public class OptionsMenu : MonoBehaviour
     public TMP_InputField yField;
     public TMP_InputField zField;
     public TMP_InputField wField;
+
+    public RectTransform colorSliderPanel;
     
     public RectTransform rulesPanel;
     public TMP_InputField rulesBirthField;
@@ -42,6 +44,7 @@ public class OptionsMenu : MonoBehaviour
     public void SetMenuState(bool show)
     {
         setDimensionsPanel.gameObject.SetActive(show);
+        colorSliderPanel.gameObject.SetActive(show);
         rulesPanel.gameObject.SetActive(show);
         randomizationPanel.gameObject.SetActive(show);
         wrappingToggle.gameObject.SetActive(show);
@@ -109,6 +112,20 @@ public class OptionsMenu : MonoBehaviour
     {
         root.gameBehaviour.Resize(width, height, depth, colors);
         root.gameCamera.distance = Mathf.Max(root.gameBehaviour.game.width, root.gameBehaviour.game.height, root.gameBehaviour.game.depth) * 1.6f;
+    }
+
+    public void OnColorSliderChanged(Slider sender)
+    {
+        ColorBlock colors = sender.colors;
+        float hue = sender.value;
+        Color color = Color.HSVToRGB(hue, 1, 1);
+        colors.normalColor = color;
+        colors.pressedColor = color;
+        colors.highlightedColor = color;
+        colors.selectedColor = color;
+        sender.colors = colors;
+
+        root.gameBehaviour.Hue = hue;
     }
 
     public void OnBirthFieldDoneEditing()
