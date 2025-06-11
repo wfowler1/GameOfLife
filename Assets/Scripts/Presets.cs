@@ -540,7 +540,43 @@ public static class Presets
         gol.currentBehavior = "Evans Glider";
     }
 
-    private static void SetDimensions(this GameOfLife gol, int xAxis, int x, int yAxis = -1, int y = 1, int zAxis = -1, int z = 1, int wAxis = -1, int w = 1)
+    public static void Bays5766InfiniGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
+    {
+        gol.Bays5766Rules();
+        int iterations = 4;
+        gol.SetDimensions(xAxis, 17, yAxis, 6, zAxis, iterations * 6);
+        
+        gol.Clear();
+
+        for (int i = 0; i < iterations; ++i)
+        {
+            gol.SetStateByAxes(true, xAxis, 0, yAxis, 2, zAxis, 3 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 0, yAxis, 3, zAxis, 2 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 0, yAxis, 3, zAxis, 4 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 1 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 2 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 4 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 5 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 2, yAxis, 1, zAxis, 3 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 0 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 1 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 5 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 0 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 1 + (i * 6));
+            gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 5 + (i * 6));
+            for (int j = 0; j < 2; ++j)
+            {
+                for (int k = 0; k < 6; ++k)
+                {
+                    gol.SetStateByAxes(true, xAxis, 3, yAxis, 2 + j, zAxis, k + (i * 6));
+                }
+            }
+        }
+
+        gol.currentBehavior = "5766 Glider Wall";
+    }
+
+    private static void SetDimensions(this GameOfLife gol, int xAxis, int xSize, int yAxis = -1, int ySize = 1, int zAxis = -1, int zSize = 1, int wAxis = -1, int wSize = 1)
     {
         int width = 1;
         int height = 1;
@@ -550,76 +586,76 @@ public static class Presets
         switch (xAxis)
         {
             case 0: {
-                width = x;
+                width = xSize;
                 break;
             }
             case 1: {
-                height = x;
+                height = xSize;
                 break;
             }
             case 2: {
-                depth = x;
+                depth = xSize;
                 break;
             }
             case 3: {
-                colors = x;
+                colors = xSize;
                 break;
             }
         }
         switch (yAxis)
         {
             case 0: {
-                width = y;
+                width = ySize;
                 break;
             }
             case 1: {
-                height = y;
+                height = ySize;
                 break;
             }
             case 2: {
-                depth = y;
+                depth = ySize;
                 break;
             }
             case 3: {
-                colors = y;
+                colors = ySize;
                 break;
             }
         }
         switch (zAxis)
         {
             case 0: {
-                width = z;
+                width = zSize;
                 break;
             }
             case 1: {
-                height = z;
+                height = zSize;
                 break;
             }
             case 2: {
-                depth = z;
+                depth = zSize;
                 break;
             }
             case 3: {
-                colors = z;
+                colors = zSize;
                 break;
             }
         }
         switch (wAxis)
         {
             case 0: {
-                width = w;
+                width = wSize;
                 break;
             }
             case 1: {
-                height = w;
+                height = wSize;
                 break;
             }
             case 2: {
-                depth = w;
+                depth = wSize;
                 break;
             }
             case 3: {
-                colors = w;
+                colors = wSize;
                 break;
             }
         }

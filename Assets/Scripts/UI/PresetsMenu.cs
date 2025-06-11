@@ -363,4 +363,12 @@ public class PresetsMenu : MonoBehaviour
         root.gameCamera.distance = 16 * 1.6f;
         HideMenuAndDoUpdates();
     }
+
+    public void OnBays5766InfiniGliderClicked()
+    {
+        root.gameBehaviour.game.Bays5766InfiniGlider();
+        root.gameBehaviour.Refresh();
+        root.gameCamera.distance = 16 * 1.6f;
+        HideMenuAndDoUpdates();
+    }
 }
