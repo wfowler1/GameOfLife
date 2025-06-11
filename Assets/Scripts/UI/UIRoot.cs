@@ -38,7 +38,9 @@ public class UIRoot : MonoBehaviour
         .Append(gameBehaviour.game.wrap ? "Yes" : "No")
         .Append("\nAlive: ")
         .Append(gameBehaviour.game.numAlive.ToString("###,##0"))
-        .Append("\nGeneration: ")
+        .Append(" (")
+        .Append(gameBehaviour.game.numCells > 0 ? (gameBehaviour.game.numAlive * 100.0f / gameBehaviour.game.numCells).ToString("##0.00") : "0.00")
+        .Append("%)\nGeneration: ")
         .Append(gameBehaviour.game.tickNum.ToString("###,##0"))
         .Append("\nBehavior: ")
         .Append(gameBehaviour.game.currentBehavior);
