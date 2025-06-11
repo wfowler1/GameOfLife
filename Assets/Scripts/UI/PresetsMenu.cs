@@ -272,6 +272,12 @@ public class PresetsMenu : MonoBehaviour
         HideMenuAndDoUpdates();
     }
 
+    public void OnFredkin3DClicked()
+    {
+        root.gameBehaviour.game.Fredkin3DRules();
+        HideMenuAndDoUpdates();
+    }
+
     public void OnB2123S10224DClicked()
     {
         root.gameBehaviour.game.B2123S10224DRules();

@@ -160,6 +160,14 @@ public static class Presets
         gol.initialPercentAlive = 0.05f;
     }
 
+    public static void Fredkin3DRules(this GameOfLife gol)
+    {
+        gol.birth = new int[] { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25 };
+        gol.survival = new int[] { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25 };
+        gol.wrap = false;
+        gol.initialPercentAlive = 0.0001f;
+    }
+
     public static void B2123S10224DRules(this GameOfLife gol)
     {
         gol.birth = new int[] { 21, 22, 23 };
