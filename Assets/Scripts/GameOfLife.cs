@@ -241,9 +241,21 @@ public class GameOfLife
     private static bool ArrayContains(int[] array, int val)
     {
         // Enumerable.Contains runs slow and creates garbage
-        for (int i = 0; i < array.Length; ++i)
+        // Array.BinarySearch is slower than writing a linear search
+        int l = 0;
+        int r = array.Length - 1;
+        while (l <= r)
         {
-            if (array[i] == val)
+            int m = (l + r) / 2;
+            if (array[m] < val)
+            {
+                l = m + 1;
+            }
+            else if (array[m] > val)
+            {
+                r = m - 1;
+            }
+            else
             {
                 return true;
             }
