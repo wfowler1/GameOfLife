@@ -15,6 +15,8 @@ public class GameOfLifeBehaviour : MonoBehaviour
     public bool paused = true;
     public float tickTime = 0.1f;
     public bool forceFullUpdateNextTick = false;
+    public bool alwaysCountNeighbors = false;
+    public bool alwaysUseChanges = false;
     private float _hue = 0.333f;
 
     public float Hue
@@ -74,6 +76,8 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
     public void Tick()
     {
+        game.alwaysUseChanges = alwaysUseChanges;
+        game.alwaysCountNeighbors = alwaysCountNeighbors;
         game.Tick(forceFullUpdateNextTick);
         UpdateFromChanges();
         forceFullUpdateNextTick = false;
@@ -106,7 +110,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
                 {
                     for (int l = 0; l < game.colors; ++l)
                     {
-                        cells[i, j, k, l].enabled = game.liveCells[i, j, k, l];
+                        cells[i, j, k, l].enabled = game.cells[i, j, k, l];
                     }
                 }
             }
@@ -120,7 +124,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
             for (int i = 0; i < game.numChanges; ++i)
             {
                 GameOfLife.Vector4i cell = game.changes[i];
-                cells[cell.x, cell.y, cell.z, cell.w].enabled = game.liveCells[cell.x, cell.y, cell.z, cell.w];
+                cells[cell.x, cell.y, cell.z, cell.w].enabled = game.cells[cell.x, cell.y, cell.z, cell.w];
             }
         }
     }
@@ -138,14 +142,21 @@ public class GameOfLifeBehaviour : MonoBehaviour
             return;
         }
 
+        SetUpMaterials();
+        SetUpCellPool();
+        SetUpCells();
+    }
+
+    private void SetUpCellPool()
+    {
         Renderer[,,,] oldCells = cells;
         cells = new Renderer[game.width, game.height, game.depth, game.colors];
 
-        // Pool any unneeded cells
         if (oldCells != null)
         {
             if (oldCells.Length >= cells.Length)
             {
+                // Pool any unneeded cells
                 Array.Copy(oldCells, cells, cells.Length);
                 Renderer[,,,] cellsToPool = new Renderer[oldCells.Length - cells.Length, 1, 1, 1];
                 Array.Copy(oldCells, cells.Length, cellsToPool, 0, cellsToPool.GetLength(0));
@@ -156,15 +167,10 @@ public class GameOfLifeBehaviour : MonoBehaviour
             }
             else
             {
+                // All currently unpooled cells needed
                 Array.Copy(oldCells, cells, oldCells.Length);
             }
         }
-
-        // Set up materials
-        SetUpMaterials();
-
-        // Set up new cells
-        SetUpCells();
     }
 
     private void SetUpMaterials()
@@ -175,15 +181,12 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
 
         Shader shader = Shader.Find("Standard");
-        for (int i = 0; i < game.colors; ++i)
+        for (int i = materials.Count; i < game.colors; ++i)
         {
-            if (materials.Count <= i)
-            {
-                Material material = new Material(shader);
-                materials.Add(material);
-                materials[i].SetFloat("_Metallic", 1);
-                materials[i].SetFloat("_Glossiness", 0.1f);
-            }
+            Material material = new Material(shader);
+            materials.Add(material);
+            materials[i].SetFloat("_Metallic", 1);
+            materials[i].SetFloat("_Glossiness", 0.1f);
         }
 
         ChangeColors();
@@ -218,7 +221,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
                         renderer.material = materials[l];
 
                         cell.isStatic = true;
-                        renderer.enabled = game.liveCells[i, j, k, l];
+                        renderer.enabled = game.cells[i, j, k, l];
                         cells[i, j, k, l] = renderer;
                     }
                 }
@@ -228,7 +231,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
     private void ChangeColors()
     {
-        for (int i = 0; i < materials.Count; ++i)
+        for (int i = 0; i < game.colors; ++i)
         {
             materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)game.colors)) % 1f, 1, 1));
         }

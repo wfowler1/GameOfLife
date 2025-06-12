@@ -196,6 +196,8 @@ MonoBehaviour:
   paused: 1
   tickTime: 0.1
   forceFullUpdateNextTick: 0
+  alwaysCountNeighbors: 0
+  alwaysUseChanges: 0
 --- !u!1001 &979111087657523815
 PrefabInstance:
   m_ObjectHideFlags: 0

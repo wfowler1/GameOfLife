@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 public class GameOfLife
@@ -16,6 +17,11 @@ public class GameOfLife
             this.y = y;
             this.z = z;
             this.w = w;
+        }
+
+        public override int GetHashCode()
+        {
+            return (x >> 1) ^ (~y >> 2) ^ z ^ ~(w << 1);
         }
     }
 
@@ -70,6 +76,8 @@ public class GameOfLife
     public int[] survival = new int[] { 2, 3 };
     public float initialPercentAlive = 0.25f;
     public bool wrap = false;
+    public bool alwaysCountNeighbors = false;
+    public bool alwaysUseChanges = false;
     public string currentBehavior = "None";
     
     public int numCells
@@ -95,7 +103,18 @@ public class GameOfLife
         private set;
     }
     
-    public bool[,,,] liveCells;
+    public bool[,,,] cells;
+    /// <summary>
+    /// List of live cells. Updated when randomizing, and during cell update phase. Used in counting neighbor phase. Length is <see cref="numAlive"/>.
+    /// </summary>
+    public Vector4i[] liveCells;
+    /// <summary>
+    /// List of dead cells. Updated when randomizing, and during cell update phase. Used in counting neighbor phase. Length is <see cref="numCells"/> - <see cref="numAlive"/>.
+    /// </summary>
+    public Vector4i[] deadCells;
+    /// <summary>
+    /// List of changed cells. Updated during cell update phase, when <see cref="SetState(bool, Vector4i)"/> is called.  Used in counting neighbor phase. Length is <see cref="numChanges"/>.
+    /// </summary>
     public Vector4i[] changes;
     public int numChanges
     {
@@ -114,6 +133,10 @@ public class GameOfLife
         Resize(dimensions);
     }
 
+    /// <summary>
+    /// Advances the simulation one step. Runs in two phases: First, count each cell's live neighbors. Second, update each cell based on live neighbor counts.
+    /// </summary>
+    /// <param name="force">Force a full recount of live neighbors for all cells on this step.</param>
     public void Tick(bool force = false)
     {
         ++tickNum;
@@ -123,17 +146,42 @@ public class GameOfLife
             numChanges = -1;
         }
 
-        if (numChanges == 0)
+        if (numChanges == 0 || numAlive == 0)
         {
             return;
         }
 
+        // Neighbor counting phase
         GetNumLiveNeighborsForAll();
+        // Cell update phase
         CalculateLife();
     }
 
+    /// <summary>
+    /// Updates the state of each cell based on the <see cref="neighborCounts"/> list, using the current birth and survival rules.
+    /// </summary>
     private void CalculateLife()
     {
+        if (liveCells == null)
+        {
+            liveCells = new Vector4i[numCells];
+        }
+        else
+        {
+            Array.Clear(liveCells, 0, liveCells.Length);
+        }
+        if (deadCells == null)
+        {
+            deadCells = new Vector4i[numCells];
+        }
+        else
+        {
+            Array.Clear(deadCells, 0, deadCells.Length);
+        }
+
+        int numLiveCells = 0;
+        int numDeadCells = 0;
+
         for (int i = 0; i < _dimensions.x; ++i)
         {
             for (int j = 0; j < _dimensions.y; ++j)
@@ -142,15 +190,46 @@ public class GameOfLife
                 {
                     for (int l = 0; l < _dimensions.w; ++l)
                     {
-                        bool wasLive = liveCells[i, j, k, l];
-                        // Enumerable.Contains runs slow and creates garbage
-                        if (wasLive && !ArrayContains(survival, neighborCounts[i, j, k, l]))
+                        bool wasAlive = cells[i, j, k, l];
+                        if (wasAlive)
                         {
-                            SetState(false, i, j, k, l);
+                            if (ArrayContains(survival, neighborCounts[i, j, k, l]))
+                            {
+                                // Cell remains alive. Add to list, leave state.
+                                liveCells[numLiveCells].x = i;
+                                liveCells[numLiveCells].y = j;
+                                liveCells[numLiveCells].z = k;
+                                liveCells[numLiveCells++].w = l;
+                            }
+                            else
+                            {
+                                // Cell dies. Add to list, change state.
+                                SetState(false, i, j, k, l);
+                                deadCells[numDeadCells].x = i;
+                                deadCells[numDeadCells].y = j;
+                                deadCells[numDeadCells].z = k;
+                                deadCells[numDeadCells++].w = l;
+                            }
                         }
-                        else if (ArrayContains(birth, neighborCounts[i, j, k, l]))
+                        else
                         {
-                            SetState(true, i, j, k, l);
+                            if (ArrayContains(birth, neighborCounts[i, j, k, l]))
+                            {
+                                // Cell is born. Add to list, change state.
+                                liveCells[numLiveCells].x = i;
+                                liveCells[numLiveCells].y = j;
+                                liveCells[numLiveCells].z = k;
+                                liveCells[numLiveCells++].w = l;
+                                SetState(true, i, j, k, l);
+                            }
+                            else
+                            {
+                                // Cell remains dead. Add to list, leave state.
+                                deadCells[numDeadCells].x = i;
+                                deadCells[numDeadCells].y = j;
+                                deadCells[numDeadCells].z = k;
+                                deadCells[numDeadCells++].w = l;
+                            }
                         }
                     }
                 }
@@ -161,6 +240,7 @@ public class GameOfLife
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool ArrayContains(int[] array, int val)
     {
+        // Enumerable.Contains runs slow and creates garbage
         for (int i = 0; i < array.Length; ++i)
         {
             if (array[i] == val)
@@ -174,7 +254,7 @@ public class GameOfLife
 
     private void GetNumLiveNeighborsForAll()
     {
-        if (numChanges > numAlive || numChanges < 0)
+        if (((numChanges > numAlive) || numChanges < 0 || alwaysCountNeighbors) && !alwaysUseChanges)
         {
             CountLiveNeighborsForAll();
         }
@@ -191,20 +271,33 @@ public class GameOfLife
         // Do a full neighbor count from scratch
         Array.Clear(neighborCounts, 0, neighborCounts.Length);
 
-        for (int i = 0; i < _dimensions.x; ++i)
+        // If nothing is known, do a full refresh
+        if (liveCells == null || deadCells == null)
         {
-            for (int j = 0; j < _dimensions.y; ++j)
+            liveCells = new Vector4i[numCells];
+            deadCells = new Vector4i[numCells];
+            for (int i = 0; i < _dimensions.x; ++i)
             {
-                for (int k = 0; k < _dimensions.z; ++k)
+                for (int j = 0; j < _dimensions.y; ++j)
                 {
-                    for (int l = 0; l < _dimensions.w; ++l)
+                    for (int k = 0; k < _dimensions.z; ++k)
                     {
-                        if (liveCells[i, j, k, l])
+                        for (int l = 0; l < _dimensions.w; ++l)
                         {
-                            AddToNeighbors(i, j, k, l, false);
+                            if (cells[i, j, k, l])
+                            {
+                                AddToNeighbors(i, j, k, l, false);
+                            }
                         }
                     }
                 }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < numAlive; ++i)
+            {
+                AddToNeighbors(liveCells[i], false);
             }
         }
     }
@@ -215,7 +308,7 @@ public class GameOfLife
         for (int i = 0; i < numChanges; ++i)
         {
             Vector4i cell = changes[i];
-            AddToNeighbors(cell.x, cell.y, cell.z, cell.w, !liveCells[cell.x, cell.y, cell.z, cell.w]);
+            AddToNeighbors(cell, !cells[cell.x, cell.y, cell.z, cell.w]);
         }
 
         Array.Clear(changes, 0, numChanges);
@@ -296,6 +389,12 @@ public class GameOfLife
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void AddToNeighbors(Vector4i cell, bool subtract)
+    {
+        AddToNeighbors(cell.x, cell.y, cell.z, cell.w, subtract);
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void WrappingClampAllNoDuplicates(int[] array, int val, int min, int max)
     {
         array[0] = WrappingClamp(val - 1, min, max);
@@ -337,15 +436,15 @@ public class GameOfLife
 
     public void Resize(Vector4i newDimensions)
     {
-        if (liveCells != null &&
+        if (cells != null &&
             _dimensions.x == newDimensions.x &&
             _dimensions.y == newDimensions.y &&
             _dimensions.z == newDimensions.z &&
             _dimensions.w == newDimensions.w &&
-            liveCells.GetLength(0) == newDimensions.x &&
-            liveCells.GetLength(1) == newDimensions.y &&
-            liveCells.GetLength(2) == newDimensions.z &&
-            liveCells.GetLength(3) == newDimensions.w)
+            cells.GetLength(0) == newDimensions.x &&
+            cells.GetLength(1) == newDimensions.y &&
+            cells.GetLength(2) == newDimensions.z &&
+            cells.GetLength(3) == newDimensions.w)
         {
             Clear();
             return;
@@ -363,9 +462,11 @@ public class GameOfLife
         _dimensions.w = newDimensions.w;
 
         // Resize arrays
-        liveCells = new bool[newDimensions.x, newDimensions.y, newDimensions.z, newDimensions.w];
+        cells = new bool[newDimensions.x, newDimensions.y, newDimensions.z, newDimensions.w];
         neighborCounts = new int[newDimensions.x, newDimensions.y, newDimensions.z, newDimensions.w];
         changes = new Vector4i[numCells];
+        liveCells = new Vector4i[numCells];
+        deadCells = new Vector4i[numCells];
     }
 
     public void Randomize(int seed = 0)
@@ -382,6 +483,7 @@ public class GameOfLife
         }
 
         currentBehavior = "Random " + (initialPercentAlive * 100).ToString("#0.##") + "%";
+        int deadCellCount = 0;
         for (int i = 0; i < _dimensions.x; ++i)
         {
             for (int j = 0; j < _dimensions.y; ++j)
@@ -391,7 +493,21 @@ public class GameOfLife
                     for (int l = 0; l < _dimensions.w; ++l)
                     {
                         bool alive = rng.NextDouble() <= initialPercentAlive;
-                        SetState(alive, i, j, k, l);
+                        if (alive)
+                        {
+                            liveCells[numAlive].x = i;
+                            liveCells[numAlive].y = j;
+                            liveCells[numAlive].z = k;
+                            liveCells[numAlive].w = l;
+                            SetState(true, i, j, k, l);
+                        }
+                        else
+                        {
+                            deadCells[deadCellCount].x = i;
+                            deadCells[deadCellCount].y = j;
+                            deadCells[deadCellCount].z = k;
+                            deadCells[deadCellCount++].w = l;
+                        }
                     }
                 }
             }
@@ -402,10 +518,26 @@ public class GameOfLife
     {
         tickNum = 0;
         numAlive = 0;
-        Array.Clear(liveCells, 0, liveCells.Length);
+        Array.Clear(cells, 0, cells.Length);
         Array.Clear(neighborCounts, 0, neighborCounts.Length);
         numChanges = 0;
         Array.Clear(changes, 0, changes.Length);
+        if (liveCells == null)
+        {
+            liveCells = new Vector4i[numCells];
+        }
+        else
+        {
+            Array.Clear(liveCells, 0, liveCells.Length);
+        }
+        if (deadCells == null)
+        {
+            deadCells = new Vector4i[numCells];
+        }
+        else
+        {
+            Array.Clear(deadCells, 0, deadCells.Length);
+        }
     }
     
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -416,9 +548,9 @@ public class GameOfLife
 
     public void SetState(bool alive, int x, int y, int z, int w)
     {
-        if (alive != liveCells[x, y, z, w])
+        if (alive != cells[x, y, z, w])
         {
-            liveCells[x, y, z, w] = alive;
+            cells[x, y, z, w] = alive;
             numAlive += alive ? 1 : -1;
             changes[numChanges++] = new Vector4i() { x = x, y = y, z = z, w = w };
         }
@@ -433,6 +565,51 @@ public class GameOfLife
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void ToggleState(int x, int y, int z, int w)
     {
-        SetState(!liveCells[x, y, z, w], x, y, z, w);
+        SetState(!cells[x, y, z, w], x, y, z, w);
+    }
+
+    public override int GetHashCode()
+    {
+        int hash = 0x53248B7C;
+
+        // Hash rules
+        int birthHash = birth.Length << survival.Length % 5;
+        for (int i = 0; i < birth.Length; ++i)
+        {
+            birthHash += birth[i] << ((i * 7) % 23);
+        }
+        int survivalHash = survival.Length << birth.Length % 3;
+        for (int i = 0; i < survival.Length; ++i)
+        {
+            survivalHash += survival[i] << ((i * 11) % 19);
+        }
+        hash ^= (birthHash ^ ~survivalHash) ^ (wrap ? 1 << 31 : 1 << 15);
+
+        // Hash world
+        hash ^= dimensions.GetHashCode();
+
+        // Hash population
+        for (int i = 0; i < _dimensions.x; ++i)
+        {
+            for (int j = 0; j < _dimensions.y; ++j)
+            {
+                for (int k = 0; k < _dimensions.z; ++k)
+                {
+                    for (int l = 0; l < _dimensions.w; ++l)
+                    {
+                        if (cells[i, j, k, l])
+                        {
+                            hash ^= 1 << (i + (j * 2) + (k * 4) + (l * 8)) % 32;
+                        }
+                        else
+                        {
+                            hash ^= 1 << ((i * 8) + (j * 5) + (k * 3) + (l * 2)) % 32;
+                        }
+                    }
+                }
+            }
+        }
+
+        return hash;
     }
 }

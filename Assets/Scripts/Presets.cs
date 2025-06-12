@@ -691,6 +691,8 @@ public static class Presets
             indices[wAxis] = w;
         }
         gol.SetState(alive, indices[0], indices[1], indices[2], indices[3]);
+        gol.liveCells = null;
+        gol.deadCells = null;
     }
 
 }
