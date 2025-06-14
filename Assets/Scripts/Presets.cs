@@ -192,13 +192,12 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 9);
-
-        gol.currentBehavior = "Simple glider";
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 9);
     }
     
     public static void SpaceShips(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
@@ -209,31 +208,30 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 4);
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 4);
 
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 12);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 12);
-
-        gol.currentBehavior = "Space ship gliders";
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 12);
     }
     
     public static void Pulsar(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
@@ -243,56 +241,55 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 10, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 11, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 12, yAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 10, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 11, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 12, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 10, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 11, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 12, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 12);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 12);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 12);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, 12);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 14);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 14);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 14);
-        gol.SetStateByAxes(true, xAxis, 10, yAxis, 14);
-        gol.SetStateByAxes(true, xAxis, 11, yAxis, 14);
-        gol.SetStateByAxes(true, xAxis, 12, yAxis, 14);
-        
-        gol.currentBehavior = "Pulsar";
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 10, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 10, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 10, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 14);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 14);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 14);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 10, yAxis, 14);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, 14);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, 14);
     }
 
     public static void PentaDecathlon(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
@@ -302,30 +299,29 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 10);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 11);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 12);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 12);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 12);
-        
-        gol.currentBehavior = "Pentadecathlon";
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 11);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 12);
     }
 
     public static void GosperGun(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
@@ -335,45 +331,44 @@ public static class Presets
         gol.SetDimensions(xAxis, 44, yAxis, height);
 
         gol.Clear();
-        
-        gol.SetStateByAxes(true, xAxis, 25, yAxis, height - 2);
-        gol.SetStateByAxes(true, xAxis, 23, yAxis, height - 3);
-        gol.SetStateByAxes(true, xAxis, 25, yAxis, height - 3);
-        gol.SetStateByAxes(true, xAxis, 13, yAxis, height - 4);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, height - 4);
-        gol.SetStateByAxes(true, xAxis, 21, yAxis, height - 4);
-        gol.SetStateByAxes(true, xAxis, 22, yAxis, height - 4);
-        gol.SetStateByAxes(true, xAxis, 35, yAxis, height - 4);
-        gol.SetStateByAxes(true, xAxis, 36, yAxis, height - 4);
-        gol.SetStateByAxes(true, xAxis, 12, yAxis, height - 5);
-        gol.SetStateByAxes(true, xAxis, 16, yAxis, height - 5);
-        gol.SetStateByAxes(true, xAxis, 21, yAxis, height - 5);
-        gol.SetStateByAxes(true, xAxis, 22, yAxis, height - 5);
-        gol.SetStateByAxes(true, xAxis, 35, yAxis, height - 5);
-        gol.SetStateByAxes(true, xAxis, 36, yAxis, height - 5);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, height - 6);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, height - 6);
-        gol.SetStateByAxes(true, xAxis, 11, yAxis, height - 6);
-        gol.SetStateByAxes(true, xAxis, 17, yAxis, height - 6);
-        gol.SetStateByAxes(true, xAxis, 21, yAxis, height - 6);
-        gol.SetStateByAxes(true, xAxis, 22, yAxis, height - 6);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 11, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 15, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 17, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 18, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 23, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 25, yAxis, height - 7);
-        gol.SetStateByAxes(true, xAxis, 11, yAxis, height - 8);
-        gol.SetStateByAxes(true, xAxis, 17, yAxis, height - 8);
-        gol.SetStateByAxes(true, xAxis, 25, yAxis, height - 8);
-        gol.SetStateByAxes(true, xAxis, 12, yAxis, height - 9);
-        gol.SetStateByAxes(true, xAxis, 16, yAxis, height - 9);
-        gol.SetStateByAxes(true, xAxis, 13, yAxis, height - 10);
-        gol.SetStateByAxes(true, xAxis, 14, yAxis, height - 10);
 
-        gol.currentBehavior = "Gosper Gun";
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 25, yAxis, height - 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 23, yAxis, height - 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 25, yAxis, height - 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 13, yAxis, height - 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, height - 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 21, yAxis, height - 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 22, yAxis, height - 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 35, yAxis, height - 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 36, yAxis, height - 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, height - 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 16, yAxis, height - 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 21, yAxis, height - 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 22, yAxis, height - 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 35, yAxis, height - 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 36, yAxis, height - 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, height - 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, height - 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, height - 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 17, yAxis, height - 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 21, yAxis, height - 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 22, yAxis, height - 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 15, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 17, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 18, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 23, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 25, yAxis, height - 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, height - 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 17, yAxis, height - 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 25, yAxis, height - 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, height - 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 16, yAxis, height - 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 13, yAxis, height - 10);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, height - 10);
     }
 
     public static void Acorn(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
@@ -383,15 +378,23 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 118, yAxis, 89);
-        gol.SetStateByAxes(true, xAxis, 119, yAxis, 89);
-        gol.SetStateByAxes(true, xAxis, 122, yAxis, 89);
-        gol.SetStateByAxes(true, xAxis, 123, yAxis, 89);
-        gol.SetStateByAxes(true, xAxis, 124, yAxis, 89);
-        gol.SetStateByAxes(true, xAxis, 119, yAxis, 91);
-        gol.SetStateByAxes(true, xAxis, 121, yAxis, 90);
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 118, yAxis, 89);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 119, yAxis, 89);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 122, yAxis, 89);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 123, yAxis, 89);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 124, yAxis, 89);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 119, yAxis, 91);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 121, yAxis, 90);
+    }
 
-        gol.currentBehavior = "Acorn";
+    public static void Fredkin64(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
+    {
+        gol.FredkinRules();
+        gol.SetDimensions(xAxis, 128, yAxis, 128);
+        gol.wrap = true;
+
+        gol.Randomize();
     }
 
     public static void SimpleGlider3D(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
@@ -402,18 +405,17 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 11, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 10, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 9, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 9, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 9, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 11, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 10, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 9, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 9, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 9, zAxis, 2);
-
-        gol.currentBehavior = "Simple Glider 3D";
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 11, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 10, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 9, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 9, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 9, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 11, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 10, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 9, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 9, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 9, zAxis, 2);
     }
 
     public static void Glider4555(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
@@ -424,29 +426,28 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 0, zAxis, 0);
-        gol.SetStateByAxes(true, xAxis, 8, yAxis, 0, zAxis, 0);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 1, zAxis, 0);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 1, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 8, yAxis, 1, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 1, zAxis, 0);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 2, zAxis, 0);
-        gol.SetStateByAxes(true, xAxis, 7, yAxis, 2, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 8, yAxis, 2, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 9, yAxis, 2, zAxis, 0);
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 0, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 8, yAxis, 0, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 1, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 1, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 8, yAxis, 1, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 1, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 2, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 2, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 8, yAxis, 2, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 2, zAxis, 0);
 
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 10, zAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 10, zAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 11, zAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 11, zAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 11, zAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 11, zAxis, 9);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 12, zAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 12, zAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 12, zAxis, 8);
-        gol.SetStateByAxes(true, xAxis, 0, yAxis, 12, zAxis, 9);
-
-        gol.currentBehavior = "B5/S4,5 Glider";
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 10, zAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 10, zAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 11, zAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 11, zAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 11, zAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 11, zAxis, 9);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 12, zAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 12, zAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 12, zAxis, 8);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 12, zAxis, 9);
     }
 
     public static void GliderB5S47(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
@@ -456,78 +457,77 @@ public static class Presets
         gol.wrap = true;
 
         gol.Clear();
-        
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 3, zAxis, 0);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 4, zAxis, 0);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 3, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 4, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 2, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 2, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 2, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 4, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 5, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 5, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 5, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 1, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 2, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 4, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 5, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 5, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 6, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 1, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 2, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 4, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 5, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 5, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 6, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 2, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 2, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 2, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 4, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 5, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 5, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 5, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 3, zAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 6, yAxis, 4, zAxis, 6);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 3, zAxis, 7);
-        gol.SetStateByAxes(true, xAxis, 5, yAxis, 4, zAxis, 7);
-        
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 12, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 12, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 13, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 13, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 14, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 14, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 11, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 11, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 12, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 14, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 15, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 15, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 11, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 11, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 15, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 15, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 11, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 11, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 12, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 4, yAxis, 14, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 15, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 15, zAxis, 4);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 12, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 12, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 13, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 13, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 14, zAxis, 5);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 14, zAxis, 5);
 
-        gol.currentBehavior = "B5/S4,7 Glider";
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 3, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 4, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 3, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 4, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 2, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 2, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 2, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 3, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 4, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 5, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 5, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 5, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 1, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 2, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 2, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 3, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 4, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 5, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 5, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 6, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 1, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 2, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 2, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 3, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 4, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 5, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 5, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 6, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 2, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 2, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 2, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 3, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 4, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 5, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 5, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 5, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 3, zAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 4, zAxis, 6);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 3, zAxis, 7);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 4, zAxis, 7);
+        
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 12, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 12, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 13, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 13, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 14, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 14, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 11, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 11, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 12, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 14, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 15, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 15, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 11, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 11, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 15, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 15, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 11, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 11, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 12, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 14, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 15, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 15, zAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 12, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 12, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 13, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 13, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 14, zAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 14, zAxis, 5);
     }
 
     public static void EvansGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
@@ -538,14 +538,13 @@ public static class Presets
 
         gol.Clear();
 
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 0, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 1, yAxis, 0, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 0, zAxis, 1);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 0, zAxis, 2);
-        gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 3);
-        gol.SetStateByAxes(true, xAxis, 3, yAxis, 2, zAxis, 2);
-
-        gol.currentBehavior = "Evans Glider";
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 0, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 0, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 0, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 0, zAxis, 2);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 2, zAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 2, zAxis, 2);
     }
 
     public static void Bays5766InfiniGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
@@ -556,32 +555,57 @@ public static class Presets
         
         gol.Clear();
 
+        int currentIndex = 0;
         for (int i = 0; i < iterations; ++i)
         {
-            gol.SetStateByAxes(true, xAxis, 0, yAxis, 2, zAxis, 3 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 0, yAxis, 3, zAxis, 2 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 0, yAxis, 3, zAxis, 4 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 1 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 2 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 4 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 1, yAxis, 1, zAxis, 5 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 2, yAxis, 1, zAxis, 3 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 0 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 1 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 2, yAxis, 2, zAxis, 5 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 0 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 1 + (i * 6));
-            gol.SetStateByAxes(true, xAxis, 2, yAxis, 3, zAxis, 5 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 2, zAxis, 3 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 3, zAxis, 2 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 0, yAxis, 3, zAxis, 4 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 1, zAxis, 1 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 1, zAxis, 2 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 1, zAxis, 4 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 1, yAxis, 1, zAxis, 5 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 1, zAxis, 3 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 2, zAxis, 0 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 2, zAxis, 1 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 2, zAxis, 5 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 3, zAxis, 0 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 3, zAxis, 1 + (i * 6));
+            gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 3, zAxis, 5 + (i * 6));
             for (int j = 0; j < 2; ++j)
             {
                 for (int k = 0; k < 6; ++k)
                 {
-                    gol.SetStateByAxes(true, xAxis, 3, yAxis, 2 + j, zAxis, k + (i * 6));
+                    gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 2 + j, zAxis, k + (i * 6));
                 }
             }
         }
+    }
 
-        gol.currentBehavior = "5766 Glider Wall";
+    public static void Acorn3D(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
+    {
+        gol.Bays5766Rules();
+        gol.SetDimensions(xAxis, 174, yAxis, 222, zAxis, 2);
+        gol.wrap = false;
+
+        gol.Clear();
+
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 118, yAxis, 89, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 119, yAxis, 89, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 122, yAxis, 89, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 123, yAxis, 89, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 124, yAxis, 89, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 119, yAxis, 91, zAxis, 0);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 121, yAxis, 90, zAxis, 0);
+
+        gol.SetAliveByAxes(currentIndex++, xAxis, 118, yAxis, 89, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 119, yAxis, 89, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 122, yAxis, 89, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 123, yAxis, 89, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 124, yAxis, 89, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 119, yAxis, 91, zAxis, 1);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 121, yAxis, 90, zAxis, 1);
     }
 
     private static void SetDimensions(this GameOfLife gol, int xAxis, int xSize, int yAxis = -1, int ySize = 1, int zAxis = -1, int zSize = 1, int wAxis = -1, int wSize = 1)
@@ -671,7 +695,7 @@ public static class Presets
         gol.Resize(new GameOfLife.Vector4i(width, height, depth, colors));
     }
 
-    private static void SetStateByAxes(this GameOfLife gol, bool alive, int xAxis, int x, int yAxis = -1, int y = 0, int zAxis = -1, int z = 0, int wAxis = -1, int w = 0)
+    private static void SetAliveByAxes(this GameOfLife gol, int index, int xAxis, int x, int yAxis = -1, int y = 0, int zAxis = -1, int z = 0, int wAxis = -1, int w = 0)
     {
         int[] indices = new int[4];
         if (xAxis >= 0)
@@ -690,8 +714,11 @@ public static class Presets
         {
             indices[wAxis] = w;
         }
-        gol.SetState(alive, indices[0], indices[1], indices[2], indices[3]);
-        gol.liveCells = null;
+        gol.SetState(indices[0], indices[1], indices[2], indices[3], true);
+        gol.liveCells[index].x = indices[0];
+        gol.liveCells[index].y = indices[1];
+        gol.liveCells[index].z = indices[2];
+        gol.liveCells[index].w = indices[3];
         gol.deadCells = null;
     }
 

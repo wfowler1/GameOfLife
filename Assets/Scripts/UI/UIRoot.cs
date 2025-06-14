@@ -41,9 +41,7 @@ public class UIRoot : MonoBehaviour
         .Append(" (")
         .Append(gameBehaviour.game.numCells > 0 ? (gameBehaviour.game.numAlive * 100.0f / gameBehaviour.game.numCells).ToString("##0.00") : "0.00")
         .Append("%)\nGeneration: ")
-        .Append(gameBehaviour.game.tickNum.ToString("###,##0"))
-        .Append("\nBehavior: ")
-        .Append(gameBehaviour.game.currentBehavior);
+        .Append(gameBehaviour.game.tickNum.ToString("###,##0"));
         rulesText.text = sb.ToString();
 
         if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Z))
@@ -87,7 +85,7 @@ public class UIRoot : MonoBehaviour
         gameCamera.target = Vector3.zero;
         gameCamera.pitch = 0;
         gameCamera.yaw = 0;
-        gameCamera.distance = Mathf.Max(gameBehaviour.game.width, gameBehaviour.game.height, gameBehaviour.game.depth) * 1.6f;
+        gameCamera.distance = Mathf.Max(gameBehaviour.game.width, gameBehaviour.game.height, gameBehaviour.game.depth) * 1.2f;
     }
 
     public void OnStepClicked()

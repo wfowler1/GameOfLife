@@ -338,6 +338,14 @@ public class PresetsMenu : MonoBehaviour
         HideMenuAndDoUpdates();
     }
 
+    public void OnFredkin64Clicked()
+    {
+        root.gameBehaviour.game.Fredkin64();
+        root.gameBehaviour.Refresh();
+        root.gameCamera.distance = 128;
+        HideMenuAndDoUpdates();
+    }
+
     public void OnSimpleGlider3DClicked()
     {
         root.gameBehaviour.game.SimpleGlider3D();
@@ -375,6 +383,14 @@ public class PresetsMenu : MonoBehaviour
         root.gameBehaviour.game.Bays5766InfiniGlider();
         root.gameBehaviour.Refresh();
         root.gameCamera.distance = 16 * 1.6f;
+        HideMenuAndDoUpdates();
+    }
+
+    public void OnAcorn3DClicked()
+    {
+        root.gameBehaviour.game.Acorn3D();
+        root.gameBehaviour.Refresh();
+        root.gameCamera.distance = 214;
         HideMenuAndDoUpdates();
     }
 }

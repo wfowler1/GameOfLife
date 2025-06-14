@@ -88,7 +88,7 @@ public class OptionsMenu : MonoBehaviour
         int colors = int.Parse(wField.text);
         int newCellsAmt = width * height * depth * colors;
         int newCubes = newCellsAmt - root.gameBehaviour.game.numCells;
-        if (!showedWarning && newCellsAmt > 50000)
+        if (!showedWarning && newCellsAmt > 65536)
         {
             root.modal.Show((result) => {
                 if (result == 0)
@@ -98,7 +98,7 @@ public class OptionsMenu : MonoBehaviour
                     showedWarning = true;
                 }
             },
-            "This will create " + newCubes.ToString("###,##0") + " new cells and bring the total to " + newCellsAmt.ToString("###,##0") + ". This may take a while to do and cause poor performance. Continue?",
+            "This will create " + newCubes.ToString("###,##0") + " new cells and bring the total to " + newCellsAmt.ToString("###,##0") + ". This may take a while to do and cause poor performance and instability. Continue?",
             "Yes", "No", null);
         }
         else
