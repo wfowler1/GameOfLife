@@ -1277,8 +1277,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Dimensions: 0x0x0x0\nRules:\n B\n S\nWrapping: No\nAlive: 0 (0%)\nGeneration:
-    0"
+  m_text: "Dimensions: 0x0x0x0\nCells in world: 0\nAlive: 0 (0.0%)\nGeneration: 0\nRules:\n
+    B\n S\n Wrapping: No"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1381,12 +1381,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4378741398686669795}
+  - {fileID: 140653799574013082}
   - {fileID: 1586272739306098135}
   - {fileID: 4191482369918807430}
   - {fileID: 3933210300109645341}
   - {fileID: 5861608149142068898}
-  - {fileID: 4378741398686669795}
-  - {fileID: 140653799574013082}
   - {fileID: 532265737304162026}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1478,6 +1478,7 @@ MonoBehaviour:
   presetsMenu: {fileID: 3269660516333964131}
   playButton: {fileID: 4570716844980516349}
   tickButton: {fileID: 6535731877382059615}
+  debug: 0
 --- !u!1 &6106771130101580042
 GameObject:
   m_ObjectHideFlags: 0

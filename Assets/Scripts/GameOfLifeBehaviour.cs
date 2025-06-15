@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GameOfLifeBehaviour : MonoBehaviour
 {
-    public GameObject cell;
+    public GameObject cellPrefab;
 
     public GameOfLife game;
     
-    private Renderer[,,,] cells;
-    private ObjectPool cellPool;
+    private Renderer[,,,] cellRenderers;
+    private ObjectPool _cellPool;
     private List<Material> materials;
     private float tickTimer = 0;
     public bool paused = true;
@@ -18,6 +18,12 @@ public class GameOfLifeBehaviour : MonoBehaviour
     public bool alwaysCountNeighbors = false;
     public bool alwaysUseChanges = false;
     private float _hue = 0.333f;
+    [NonSerialized] public int numCubesInScene = 0; // Not pooled
+
+    public bool lowMem = false;
+    public bool debug = false;
+    [NonSerialized] public float debugTickTime = 0;
+    [NonSerialized] public float debugRefreshTime = 0;
 
     public float Hue
     {
@@ -32,20 +38,28 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
     }
 
+    public ObjectPool cellPool
+    {
+        get
+        {
+            if (_cellPool == null && !TryGetComponent<ObjectPool>(out _cellPool))
+            {
+                _cellPool = gameObject.AddComponent<ObjectPool>();
+            }
+
+            return _cellPool;
+        }
+    }
+
     /// <summary>
-    /// Start is called before the first frame update
+    /// Start is called before the first frame update.
     /// </summary>
     private void Start()
     {
         game = new GameOfLife(64, 64, 1, 1);
         game.ConwayRules();
 
-        cellPool = GetComponent<ObjectPool>();
-        if (cellPool == null)
-        {
-            cellPool = gameObject.AddComponent<ObjectPool>();
-        }
-        cellPool.poolObject = cell;
+        cellPool.poolObject = cellPrefab;
 
         SizeChanged();
         Randomize();
@@ -54,15 +68,10 @@ public class GameOfLifeBehaviour : MonoBehaviour
     }
 
     /// <summary>
-    /// Update is called once per frame
+    /// Update is called once per frame.
     /// </summary>
     private void Update()
     {
-        if (game.width != cells.GetLength(0) || game.height != cells.GetLength(1) || game.depth != cells.GetLength(2) || game.colors != cells.GetLength(3))
-        {
-            SizeChanged();
-        }
-
         if (!paused)
         {
             tickTimer += Time.deltaTime;
@@ -74,59 +83,32 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
     }
 
+    // Game management
     public void Tick()
     {
         game.alwaysUseChanges = alwaysUseChanges;
         game.alwaysCountNeighbors = alwaysCountNeighbors;
-        game.Tick(forceFullUpdateNextTick);
-        UpdateFromChanges();
+        if (debug)
+        {
+            DateTime start = DateTime.Now;
+            game.Tick(forceFullUpdateNextTick);
+            DateTime tickFinishTime = DateTime.Now;
+            debugTickTime = (float)(tickFinishTime - start).TotalSeconds;
+            RefreshChanged();
+            debugRefreshTime = (float)(DateTime.Now - tickFinishTime).TotalSeconds;
+        }
+        else
+        {
+            game.Tick(forceFullUpdateNextTick);
+            RefreshChanged();
+        }
         forceFullUpdateNextTick = false;
     }
 
     public void Randomize(int seed = 0)
     {
         game.Randomize(seed);
-        Refresh();
-    }
-
-    public void Clear()
-    {
-        game.Clear();
-        Refresh();
-    }
-
-    public void Refresh()
-    {
-        if (game.width != cells.GetLength(0) || game.height != cells.GetLength(1) || game.depth != cells.GetLength(2) || game.colors != cells.GetLength(3))
-        {
-            SizeChanged();
-        }
-
-        for (int i = 0; i < game.width; ++i)
-        {
-            for (int j = 0; j < game.height; ++j)
-            {
-                for (int k = 0; k < game.depth; ++k)
-                {
-                    for (int l = 0; l < game.colors; ++l)
-                    {
-                        cells[i, j, k, l].enabled = game.cells[i, j, k, l];
-                    }
-                }
-            }
-        }
-    }
-
-    public void UpdateFromChanges()
-    {
-        if (game.numChanges > 0)
-        {
-            for (int i = 0; i < game.numChanges; ++i)
-            {
-                GameOfLife.Vector4i cell = game.changes[i];
-                cells[cell.x, cell.y, cell.z, cell.w].enabled = game.cells[cell.x, cell.y, cell.z, cell.w];
-            }
-        }
+        RefreshAll();
     }
 
     public void Resize(int width, int height, int depth, int colors)
@@ -135,42 +117,24 @@ public class GameOfLifeBehaviour : MonoBehaviour
         SizeChanged();
     }
 
-    public void SizeChanged()
+    public void Clear()
     {
-        if (cells != null && game.width == cells.GetLength(0) && game.height == cells.GetLength(1) && game.depth == cells.GetLength(2) && game.colors == cells.GetLength(3))
+        game.Clear();
+        RefreshAll();
+    }
+
+    // Renderer setup
+    private void SizeChanged()
+    {
+        if (cellRenderers != null && game.width == cellRenderers.GetLength(0) && game.height == cellRenderers.GetLength(1) && game.depth == cellRenderers.GetLength(2) && game.colors == cellRenderers.GetLength(3))
         {
             return;
         }
 
+        PoolAll();
+
+        cellRenderers = new Renderer[game.width, game.height, game.depth, game.colors];
         SetUpMaterials();
-        SetUpCellPool();
-        SetUpCells();
-    }
-
-    private void SetUpCellPool()
-    {
-        Renderer[,,,] oldCells = cells;
-        cells = new Renderer[game.width, game.height, game.depth, game.colors];
-
-        if (oldCells != null)
-        {
-            if (oldCells.Length >= cells.Length)
-            {
-                // Pool any unneeded cells
-                Array.Copy(oldCells, cells, cells.Length);
-                Renderer[,,,] cellsToPool = new Renderer[oldCells.Length - cells.Length, 1, 1, 1];
-                Array.Copy(oldCells, cells.Length, cellsToPool, 0, cellsToPool.GetLength(0));
-                for (int i = 0; i < cellsToPool.GetLength(0); ++i)
-                {
-                    cellPool.PoolObject(cellsToPool[i, 0, 0, 0].gameObject);
-                }
-            }
-            else
-            {
-                // All currently unpooled cells needed
-                Array.Copy(oldCells, cells, oldCells.Length);
-            }
-        }
     }
 
     private void SetUpMaterials()
@@ -192,8 +156,28 @@ public class GameOfLifeBehaviour : MonoBehaviour
         ChangeColors();
     }
 
-    private void SetUpCells()
+    private void ChangeColors()
     {
+        for (int i = 0; i < game.colors; ++i)
+        {
+            materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)game.colors)) % 1f, 1, 1));
+        }
+    }
+
+    // Rendering
+    /// <summary>
+    /// Pools all currently live cells, and resets the entire scene from scratch.
+    /// Use <see cref="RefreshAll"/> instead, unless the game's <see cref="GameOfLife.liveCells"/> and/or <see cref="GameOfLife.deadCells"/> lists are untrustworthy for some reason.
+    /// </summary>
+    public void RefreshFromCells()
+    {
+        PoolAll();
+
+        if (game.width != cellRenderers.GetLength(0) || game.height != cellRenderers.GetLength(1) || game.depth != cellRenderers.GetLength(2) || game.colors != cellRenderers.GetLength(3))
+        {
+            SizeChanged();
+        }
+
         for (int i = 0; i < game.width; ++i)
         {
             for (int j = 0; j < game.height; ++j)
@@ -202,38 +186,144 @@ public class GameOfLifeBehaviour : MonoBehaviour
                 {
                     for (int l = 0; l < game.colors; ++l)
                     {
-                        GameObject cell;
-                        if (cells[i, j, k, l] == null)
+                        if (game.cells[i, j, k, l])
                         {
-                            cell = cellPool.GetObject();
+                            EnableCell(i, j, k, l);
                         }
-                        else
-                        {
-                            cell = cells[i, j, k, l].gameObject;
-                        }
-                        
-                        cell.transform.position = new Vector3(i - (game.width - 1) / 2f, j - (game.height - 1) / 2f, k - (game.depth - 1) / 2f);
-                        cell.transform.rotation = Quaternion.identity;
-
-                        // Apply some rotation as well to prevent Z-fighting
-                        cell.transform.Rotate(Vector3.one, l * 120 / (float)game.colors);
-                        MeshRenderer renderer = cell.GetComponent<MeshRenderer>();
-                        renderer.material = materials[l];
-
-                        cell.isStatic = true;
-                        renderer.enabled = game.cells[i, j, k, l];
-                        cells[i, j, k, l] = renderer;
                     }
                 }
             }
         }
     }
 
-    private void ChangeColors()
+    public void RefreshAll()
     {
-        for (int i = 0; i < game.colors; ++i)
+        if (game.width != cellRenderers.GetLength(0) || game.height != cellRenderers.GetLength(1) || game.depth != cellRenderers.GetLength(2) || game.colors != cellRenderers.GetLength(3))
         {
-            materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)game.colors)) % 1f, 1, 1));
+            SizeChanged();
+        }
+
+        if (game.liveCells == null)
+        {
+            RefreshFromCells();
+            return;
+        }
+
+        if (game.deadCells != null)
+        {
+            for (int i = 0; i < game.numCells - game.numAlive; ++i)
+            {
+                GameOfLife.Vector4i cell = game.deadCells[i];
+                DisableCell(cell.x, cell.y, cell.z, cell.w);
+            }
+        }
+        else
+        {
+            PoolAll();
+        }
+
+        for (int i = 0; i < game.numAlive; ++i)
+        {
+            GameOfLife.Vector4i cell = game.liveCells[i];
+            EnableCell(cell.x, cell.y, cell.z, cell.w);
+        }
+
+    }
+
+    public void RefreshChanged()
+    {
+        if (game.changes == null)
+        {
+            RefreshAll();
+            return;
+        }
+
+        for (int i = 0; i < game.numChanges; ++i)
+        {
+            GameOfLife.Vector4i cell = game.changes[i];
+            if (game.cells[cell.x, cell.y, cell.z, cell.w])
+            {
+                EnableCell(cell.x, cell.y, cell.z, cell.w);
+            }
+            else
+            {
+                DisableCell(cell.x, cell.y, cell.z, cell.w);
+            }
         }
     }
+
+    private void PoolAll()
+    {
+        numCubesInScene = 0;
+
+        if (cellRenderers == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < cellRenderers.GetLength(0); ++i)
+        {
+            for (int j = 0; j < cellRenderers.GetLength(1); ++j)
+            {
+                for (int k = 0; k < cellRenderers.GetLength(2); ++k)
+                {
+                    for (int l = 0; l < cellRenderers.GetLength(3); ++l)
+                    {
+                        if (cellRenderers[i, j, k, l] != null)
+                        {
+                            cellRenderers[i, j, k, l].enabled = false;
+                            cellPool.PoolObject(cellRenderers[i, j, k, l].gameObject);
+                            cellRenderers[i, j, k, l] = null;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void EnableCell(int x, int y, int z, int w)
+    {
+        if (cellRenderers[x, y, z, w] != null)
+        {
+            cellRenderers[x, y, z, w].enabled = true;
+            return;
+        }
+
+        GameObject cell = cellPool.GetObject();
+        ++numCubesInScene;
+
+        cell.transform.position = new Vector3(x - (game.width - 1) / 2f, y - (game.height - 1) / 2f, z - (game.depth - 1) / 2f);
+        cell.transform.rotation = Quaternion.identity;
+
+        // Apply some rotation as well to prevent Z-fighting
+        cell.transform.Rotate(Vector3.one, w * 120 / (float)game.colors);
+        MeshRenderer renderer = cell.GetComponent<MeshRenderer>();
+        renderer.material = materials[w];
+
+        cell.isStatic = true;
+        renderer.enabled = true;
+        cellRenderers[x, y, z, w] = renderer;
+    }
+
+    private void DisableCell(int x, int y, int z, int w)
+    {
+        if (cellRenderers[x, y, z, w] == null)
+        {
+            return;
+        }
+
+        GameObject cell = cellRenderers[x, y, z, w].gameObject;
+        cellRenderers[x, y, z, w].enabled = false;
+
+        // Pool dead cells rather than leave them in place.
+        // Cubes representing dead cells can then be repurposed to another live cell somewhere, so a new cube won't need to be instantiated.
+        // This will save memory, but every time a cell is born a cube will have to be set up again
+        if (lowMem)
+        {
+            cellPool.PoolObject(cell);
+            --numCubesInScene;
+            cellRenderers[x, y, z, w] = null;
+        }
+    }
+
 }

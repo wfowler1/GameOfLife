@@ -21,6 +21,8 @@ public class OptionsMenu : MonoBehaviour
     public RectTransform randomizationPanel;
     public TMP_InputField randomizationField;
     public Toggle wrappingToggle;
+    public Toggle lowMemToggle;
+    public Toggle debugToggle;
     public Button quitButton;
 
     private bool showingMenu = false;
@@ -48,6 +50,8 @@ public class OptionsMenu : MonoBehaviour
         rulesPanel.gameObject.SetActive(show);
         randomizationPanel.gameObject.SetActive(show);
         wrappingToggle.gameObject.SetActive(show);
+        lowMemToggle.gameObject.SetActive(show);
+        debugToggle.gameObject.SetActive(show);
         quitButton.gameObject.SetActive(show);
 
         if (!show)
@@ -73,6 +77,8 @@ public class OptionsMenu : MonoBehaviour
         rulesSurvivalField.text = GetRulesFieldNumbers(root.gameBehaviour.game.survival);
         randomizationField.text = (root.gameBehaviour.game.initialPercentAlive * 100f).ToString();
         wrappingToggle.isOn = root.gameBehaviour.game.wrap;
+        lowMemToggle.isOn = root.gameBehaviour.lowMem;
+        debugToggle.isOn = root.debug;
     }
 
     private void SetButtonText(Button button, string text)
@@ -98,7 +104,7 @@ public class OptionsMenu : MonoBehaviour
                     showedWarning = true;
                 }
             },
-            "This will create " + newCubes.ToString("###,##0") + " new cells and bring the total to " + newCellsAmt.ToString("###,##0") + ". This may take a while to do and cause poor performance and instability. Continue?",
+            "This will create " + newCubes.ToString("###,##0") + " new cells and bring the total to " + newCellsAmt.ToString("###,##0") + ". This may cause poor performance and instability. Continue?",
             "Yes", "No", null);
         }
         else
@@ -168,6 +174,16 @@ public class OptionsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.wrap = wrappingToggle.isOn;
         root.gameBehaviour.forceFullUpdateNextTick = true;
+    }
+
+    public void OnLowMemToggleChanged()
+    {
+        root.gameBehaviour.lowMem = lowMemToggle.isOn;
+    }
+
+    public void OnDebugToggleChanged()
+    {
+        root.debug = debugToggle.isOn;
     }
 
     public void OnQuitClicked()

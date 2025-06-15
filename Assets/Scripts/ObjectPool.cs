@@ -8,6 +8,10 @@ public class ObjectPool : MonoBehaviour
 
     private Stack<GameObject> pool = new Stack<GameObject>();
 
+    public int Count
+    {
+        get { return pool.Count; }
+    }
 
     public GameObject GetObject()
     {
@@ -25,7 +29,22 @@ public class ObjectPool : MonoBehaviour
     public void PoolObject(GameObject go)
     {
         pool.Push(go);
-        go.SetActive(false);
+    }
+
+    public void DisablePooled()
+    {
+        foreach (GameObject go in pool)
+        {
+            go.SetActive(false);
+        }
+    }
+
+    public void DestroyPooled()
+    {
+        while (pool.Count > 0)
+        {
+            Destroy(pool.Pop());
+        }
     }
 
     public void Flush()
