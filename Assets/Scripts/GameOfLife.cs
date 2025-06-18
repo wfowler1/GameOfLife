@@ -18,17 +18,22 @@ public class GameOfLife
             this.w = w;
         }
 
-        public bool Equals(Vector4i other)
+        public readonly bool Equals(Vector4i other)
         {
             return x == other.x && other.y == y && other.z == z && other.w == w;
         }
 
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return ~x ^ 
-                (y << 8) | (y >> (24)) ^
+                ((y << 8) | (y >> (24))) ^
                 ~((z << 16) | (z >> (16))) ^
-                (w << 24) | (w >> (8));
+                ((w << 24) | (w >> (8)));
+        }
+
+        public override readonly string ToString()
+        {
+            return "(" + x + ", " + y + ", " + z + ", " + w + ")";
         }
     }
 
