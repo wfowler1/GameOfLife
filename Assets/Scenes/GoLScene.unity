@@ -198,6 +198,7 @@ MonoBehaviour:
   forceFullUpdateNextTick: 0
   alwaysCountNeighbors: 0
   alwaysUseChanges: 0
+  lowMem: 1
   debug: 0
 --- !u!1001 &979111087657523815
 PrefabInstance:
