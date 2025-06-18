@@ -397,6 +397,23 @@ public static class Presets
         gol.Randomize();
     }
 
+    public static void MorleyGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
+    {
+        gol.MorleyRules();
+        gol.SetDimensions(xAxis, 128, yAxis, 72);
+        gol.wrap = true;
+
+        gol.Clear();
+
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 3);
+    }
+
     public static void SimpleGlider3D(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
     {
         gol.Bays5766Rules();
