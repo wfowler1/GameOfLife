@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIRoot : MonoBehaviour
 {
+    public Canvas canvas;
     public ModalDialog modal;
     public CameraControl gameCamera;
     public GameOfLifeBehaviour gameBehaviour;
@@ -18,6 +19,11 @@ public class UIRoot : MonoBehaviour
 
     public void Start()
     {
+        if (canvas == null)
+        {
+            canvas = GetComponent<Canvas>();
+        }
+
         UpdateStates();
     }
 
@@ -25,57 +31,60 @@ public class UIRoot : MonoBehaviour
     {
         gameBehaviour.debug = debug;
 
-        StringBuilder sb = new StringBuilder();
-        sb.Append("Dimensions: ")
-        .Append(gameBehaviour.game.width.ToString("###,##0"))
-        .Append("x")
-        .Append(gameBehaviour.game.height.ToString("###,##0"))
-        .Append("x")
-        .Append(gameBehaviour.game.depth.ToString("###,##0"))
-        .Append("x")
-        .Append(gameBehaviour.game.colors.ToString("###,##0"))
-        .Append("\nCells in world: ")
-        .Append(gameBehaviour.game.numCells.ToString("###,##0"))
-        .Append("\nAlive: ")
-        .Append(gameBehaviour.game.numAlive.ToString("###,##0"))
-        .Append(" (")
-        .Append(gameBehaviour.game.numCells > 0 ? (gameBehaviour.game.numAlive * 100.0f / gameBehaviour.game.numCells).ToString("##0.00") : "0.00")
-        .Append("%)\nGeneration: ")
-        .Append(gameBehaviour.game.tickNum.ToString("###,##0"))
-        .Append("\nRules:\n B")
-        .Append(string.Join(',', gameBehaviour.game.birth))
-        .Append("\n S")
-        .Append(string.Join(',', gameBehaviour.game.survival))
-        .Append("\n Wrapping: ")
-        .Append(gameBehaviour.game.wrap ? "Yes" : "No");
-
-        if (debug)
+        if (canvas.enabled)
         {
-            int cubesInMemory = (gameBehaviour.cellPool.Count + gameBehaviour.numCubesInScene);
-            sb.Append("\nMemory usage:\n Cubes in Memory: ")
-           .Append(cubesInMemory.ToString("###,##0"))
-           .Append(" (")
-           .Append(gameBehaviour.game.numCells > 0 ? (cubesInMemory * 100.0f / gameBehaviour.game.numCells).ToString("##0.00") : "0.00")
-           .Append("% of World)\n Cubes in Scene: ")
-           .Append(gameBehaviour.numCubesInScene.ToString("###,##0"))
-           .Append(" (")
-           .Append(cubesInMemory > 0 ? (gameBehaviour.numCubesInScene * 100.0f / cubesInMemory).ToString("##0.00") : "0.00")
-           .Append("%)\n Cubes Pooled: ")
-           .Append(gameBehaviour.cellPool.Count.ToString("###,##0"))
-           .Append(" (")
-           .Append(cubesInMemory > 0 ? (gameBehaviour.cellPool.Count * 100.0f / cubesInMemory).ToString("##0.00") : "0.00")
-           .Append("%)\nTimers:\n Tick time: ")
-           .Append(gameBehaviour.debugTickTime.ToString("##0.00000"))
-           .Append("s\n Scene update time: ")
-           .Append(gameBehaviour.debugRefreshTime.ToString("##0.00000"))
-           .Append("s");
-        }
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Dimensions: ")
+            .Append(gameBehaviour.game.width.ToString("###,##0"))
+            .Append("x")
+            .Append(gameBehaviour.game.height.ToString("###,##0"))
+            .Append("x")
+            .Append(gameBehaviour.game.depth.ToString("###,##0"))
+            .Append("x")
+            .Append(gameBehaviour.game.colors.ToString("###,##0"))
+            .Append("\nCells in world: ")
+            .Append(gameBehaviour.game.numCells.ToString("###,##0"))
+            .Append("\nAlive: ")
+            .Append(gameBehaviour.game.numAlive.ToString("###,##0"))
+            .Append(" (")
+            .Append(gameBehaviour.game.numCells > 0 ? (gameBehaviour.game.numAlive * 100.0f / gameBehaviour.game.numCells).ToString("##0.00") : "0.00")
+            .Append("%)\nGeneration: ")
+            .Append(gameBehaviour.game.tickNum.ToString("###,##0"))
+            .Append("\nRules:\n B")
+            .Append(string.Join(',', gameBehaviour.game.birth))
+            .Append("\n S")
+            .Append(string.Join(',', gameBehaviour.game.survival))
+            .Append("\n Wrapping: ")
+            .Append(gameBehaviour.game.wrap ? "Yes" : "No");
 
-        rulesText.text = sb.ToString();
+            if (debug)
+            {
+                int cubesInMemory = (gameBehaviour.cellPool.Count + gameBehaviour.numCubesInScene);
+                sb.Append("\nMemory usage:\n Cubes in Memory: ")
+               .Append(cubesInMemory.ToString("###,##0"))
+               .Append(" (")
+               .Append(gameBehaviour.game.numCells > 0 ? (cubesInMemory * 100.0f / gameBehaviour.game.numCells).ToString("##0.00") : "0.00")
+               .Append("% of World)\n Cubes in Scene: ")
+               .Append(gameBehaviour.numCubesInScene.ToString("###,##0"))
+               .Append(" (")
+               .Append(cubesInMemory > 0 ? (gameBehaviour.numCubesInScene * 100.0f / cubesInMemory).ToString("##0.00") : "0.00")
+               .Append("%)\n Cubes Pooled: ")
+               .Append(gameBehaviour.cellPool.Count.ToString("###,##0"))
+               .Append(" (")
+               .Append(cubesInMemory > 0 ? (gameBehaviour.cellPool.Count * 100.0f / cubesInMemory).ToString("##0.00") : "0.00")
+               .Append("%)\nTimers:\n Tick time: ")
+               .Append(gameBehaviour.debugTickTime.ToString("##0.00000"))
+               .Append("s\n Scene update time: ")
+               .Append(gameBehaviour.debugRefreshTime.ToString("##0.00000"))
+               .Append("s");
+            }
+
+            rulesText.text = sb.ToString();
+        }
 
         if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.Z))
         {
-            GetComponent<Canvas>().enabled = !GetComponent<Canvas>().enabled;
+            canvas.enabled = !canvas.enabled;
         }
     }
 

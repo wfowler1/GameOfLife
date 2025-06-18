@@ -1470,6 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ddc9172f4399d145bf79b3719fb8630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 509403924866856922}
   modal: {fileID: 5983208952715475573}
   gameCamera: {fileID: 0}
   gameBehaviour: {fileID: 0}
