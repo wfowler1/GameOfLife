@@ -102,6 +102,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
             game.Tick(forceFullUpdateNextTick);
             RefreshChanged();
         }
+
         forceFullUpdateNextTick = false;
     }
 
@@ -209,23 +210,20 @@ public class GameOfLifeBehaviour : MonoBehaviour
             return;
         }
 
-        if (game.deadCells != null)
+        if (game.changes != null)
         {
-            for (int i = 0; i < game.numCells - game.numAlive; ++i)
+            for (int i = 0; i < game.numChanges; ++i)
             {
-                GameOfLife.Vector4i cell = game.deadCells[i];
-                DisableCell(cell.x, cell.y, cell.z, cell.w);
+                GameOfLife.Vector4i cell = game.changes[i];
+                if (game.cells[cell.x, cell.y, cell.z, cell.w])
+                {
+                    EnableCell(cell.x, cell.y, cell.z, cell.w);
+                }
+                else
+                {
+                    DisableCell(cell.x, cell.y, cell.z, cell.w);
+                }
             }
-        }
-        else
-        {
-            PoolAll();
-        }
-
-        for (int i = 0; i < game.numAlive; ++i)
-        {
-            GameOfLife.Vector4i cell = game.liveCells[i];
-            EnableCell(cell.x, cell.y, cell.z, cell.w);
         }
 
     }

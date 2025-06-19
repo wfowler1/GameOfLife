@@ -96,7 +96,7 @@ public class GameOfLife
     /// Current states of all cells.
     /// </summary>
     public bool[,,,] cells;
-    private int[,,,] neighborCounts;
+    private byte[,,,] neighborCounts;
     /// <summary>
     /// List of live cells. Updated when randomizing, and during cell update phase. Used in counting neighbor phase. Length is <see cref="numAlive"/>.
     /// </summary>
@@ -104,7 +104,7 @@ public class GameOfLife
     /// <summary>
     /// List of dead cells. Updated when randomizing, and during cell update phase. Used in counting neighbor phase. Length is <see cref="numCells"/> - <see cref="numAlive"/>.
     /// </summary>
-    public Vector4i[] deadCells;
+    //public Vector4i[] deadCells;
     /// <summary>
     /// List of changed cells since last generation. Updated during cell update phase, when <see cref="SetState(bool, Vector4i)"/> is called.<br/>
     /// Used in counting neighbor phase. Length is <see cref="numChanges"/>. Length is <see cref="numChanges"/>.
@@ -199,21 +199,13 @@ public class GameOfLife
         {
             liveCells = new Vector4i[numCells];
         }
-        else
-        {
-            Array.Clear(liveCells, 0, liveCells.Length);
-        }
-        if (deadCells == null)
-        {
-            deadCells = new Vector4i[numCells];
-        }
-        else
-        {
-            Array.Clear(deadCells, 0, deadCells.Length);
-        }
+        //if (deadCells == null)
+        //{
+        //    deadCells = new Vector4i[numCells];
+        //}
 
         int numLiveCells = 0;
-        int numDeadCells = 0;
+        //int numDeadCells = 0;
 
         for (int i = 0; i < _dimensions.x; ++i)
         {
@@ -238,10 +230,10 @@ public class GameOfLife
                             {
                                 // Cell dies. Add to list, change state.
                                 SetState(i, j, k, l, false);
-                                deadCells[numDeadCells].x = i;
-                                deadCells[numDeadCells].y = j;
-                                deadCells[numDeadCells].z = k;
-                                deadCells[numDeadCells++].w = l;
+                                //deadCells[numDeadCells].x = i;
+                                //deadCells[numDeadCells].y = j;
+                                //deadCells[numDeadCells].z = k;
+                                //deadCells[numDeadCells++].w = l;
                             }
                         }
                         else
@@ -255,14 +247,14 @@ public class GameOfLife
                                 liveCells[numLiveCells++].w = l;
                                 SetState(i, j, k, l, true);
                             }
-                            else
-                            {
-                                // Cell remains dead. Add to list, leave state.
-                                deadCells[numDeadCells].x = i;
-                                deadCells[numDeadCells].y = j;
-                                deadCells[numDeadCells].z = k;
-                                deadCells[numDeadCells++].w = l;
-                            }
+                            //else
+                            //{
+                            //    // Cell remains dead. Add to list, leave state.
+                            //    deadCells[numDeadCells].x = i;
+                            //    deadCells[numDeadCells].y = j;
+                            //    deadCells[numDeadCells].z = k;
+                            //    deadCells[numDeadCells++].w = l;
+                            //}
                         }
                     }
                 }
@@ -304,7 +296,7 @@ public class GameOfLife
             if (liveCells == null)
             {
                 liveCells = new Vector4i[numCells];
-                deadCells = new Vector4i[numCells];
+                //deadCells = new Vector4i[numCells];
                 CountLiveNeighborsForAll();
             }
             else
@@ -441,7 +433,7 @@ public class GameOfLife
                             continue;
                         }
 
-                        neighborCounts[neighborX[i], neighborY[j], neighborZ[k], neighborW[l]] += cells[x, y, z, w] ? 1 : -1;
+                        neighborCounts[neighborX[i], neighborY[j], neighborZ[k], neighborW[l]] += (byte)(cells[x, y, z, w] ? 1 : -1);
                     }
                 }
             }
@@ -519,10 +511,10 @@ public class GameOfLife
 
         // Resize arrays
         cells = new bool[newWidth, newHeight, newDepth, newColors];
-        neighborCounts = new int[newWidth, newHeight, newDepth, newColors];
+        neighborCounts = new byte[newWidth, newHeight, newDepth, newColors];
         changes = new Vector4i[numCells];
         liveCells = new Vector4i[numCells];
-        deadCells = new Vector4i[numCells];
+        //deadCells = new Vector4i[numCells];
     }
 
     /// <summary>
@@ -551,7 +543,7 @@ public class GameOfLife
             rng = new Random();
         }
 
-        int deadCellCount = 0;
+        //int deadCellCount = 0;
         for (int i = 0; i < _dimensions.x; ++i)
         {
             for (int j = 0; j < _dimensions.y; ++j)
@@ -569,13 +561,13 @@ public class GameOfLife
                             liveCells[numAlive].w = l;
                             SetState(i, j, k, l, true);
                         }
-                        else
-                        {
-                            deadCells[deadCellCount].x = i;
-                            deadCells[deadCellCount].y = j;
-                            deadCells[deadCellCount].z = k;
-                            deadCells[deadCellCount++].w = l;
-                        }
+                        //else
+                        //{
+                        //    deadCells[deadCellCount].x = i;
+                        //    deadCells[deadCellCount].y = j;
+                        //    deadCells[deadCellCount].z = k;
+                        //    deadCells[deadCellCount++].w = l;
+                        //}
                     }
                 }
             }
@@ -588,11 +580,13 @@ public class GameOfLife
     public void Clear()
     {
         tickNum = 0;
+
+        numChanges = numAlive;
+        Array.Copy(liveCells, changes, numAlive);
+
         numAlive = 0;
         Array.Clear(cells, 0, cells.Length);
         Array.Clear(neighborCounts, 0, neighborCounts.Length);
-        numChanges = 0;
-        Array.Clear(changes, 0, changes.Length);
         if (liveCells == null)
         {
             liveCells = new Vector4i[numCells];
@@ -601,14 +595,14 @@ public class GameOfLife
         {
             Array.Clear(liveCells, 0, liveCells.Length);
         }
-        if (deadCells == null)
-        {
-            deadCells = new Vector4i[numCells];
-        }
-        else
-        {
-            Array.Clear(deadCells, 0, deadCells.Length);
-        }
+        //if (deadCells == null)
+        //{
+        //    deadCells = new Vector4i[numCells];
+        //}
+        //else
+        //{
+        //    Array.Clear(deadCells, 0, deadCells.Length);
+        //}
     }
 
     /// <summary>

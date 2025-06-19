@@ -736,7 +736,7 @@ public static class Presets
         gol.liveCells[index].y = indices[1];
         gol.liveCells[index].z = indices[2];
         gol.liveCells[index].w = indices[3];
-        gol.deadCells = null;
+        //gol.deadCells = null;
     }
 
 }
