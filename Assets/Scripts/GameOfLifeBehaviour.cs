@@ -172,11 +172,13 @@ public class GameOfLifeBehaviour : MonoBehaviour
     /// </summary>
     public void RefreshFromCells()
     {
-        PoolAll();
-
         if (game.width != cellRenderers.GetLength(0) || game.height != cellRenderers.GetLength(1) || game.depth != cellRenderers.GetLength(2) || game.colors != cellRenderers.GetLength(3))
         {
             SizeChanged();
+        }
+        else
+        {
+            PoolAll();
         }
 
         for (int i = 0; i < game.width; ++i)
@@ -199,31 +201,25 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
     public void RefreshAll()
     {
-        if (game.width != cellRenderers.GetLength(0) || game.height != cellRenderers.GetLength(1) || game.depth != cellRenderers.GetLength(2) || game.colors != cellRenderers.GetLength(3))
-        {
-            SizeChanged();
-        }
-
         if (game.liveCells == null)
         {
             RefreshFromCells();
             return;
         }
 
-        if (game.changes != null)
+        if (game.width != cellRenderers.GetLength(0) || game.height != cellRenderers.GetLength(1) || game.depth != cellRenderers.GetLength(2) || game.colors != cellRenderers.GetLength(3))
         {
-            for (int i = 0; i < game.numChanges; ++i)
-            {
-                GameOfLife.Vector4i cell = game.changes[i];
-                if (game.cells[cell.x, cell.y, cell.z, cell.w])
-                {
-                    EnableCell(cell.x, cell.y, cell.z, cell.w);
-                }
-                else
-                {
-                    DisableCell(cell.x, cell.y, cell.z, cell.w);
-                }
-            }
+            SizeChanged();
+        }
+        else
+        {
+            PoolAll();
+        }
+
+        for (int i = 0; i < game.liveCells.Length; ++i)
+        {
+            GameOfLife.Vector4i cell = game.liveCells[i];
+            EnableCell(cell.x, cell.y, cell.z, cell.w);
         }
 
     }

@@ -533,6 +533,7 @@ public class GameOfLife
     public void Randomize(int seed = 0)
     {
         Clear();
+        numChanges = 0;
         Random rng;
         if (seed != 0)
         {
