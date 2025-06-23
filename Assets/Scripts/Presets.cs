@@ -295,33 +295,23 @@ public static class Presets
     public static void PentaDecathlon(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
     {
         gol.ConwayRules();
-        gol.SetDimensions(xAxis, 10, yAxis, 18);
+        gol.SetDimensions(xAxis, 18, yAxis, 9);
 
         gol.Clear();
 
         int currentIndex = 0;
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 5);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 5);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 5);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 6);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 6);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 7);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 7);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 7);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 8);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 8);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 8);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 9);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 9);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 9);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 10);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 10);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 10);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 11);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 11);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 12);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 12);
-        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 12);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, 3);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 8, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 9, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 10, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 11, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 13, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 14, yAxis, 4);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 7, yAxis, 5);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 12, yAxis, 5);
     }
 
     public static void GosperGun(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
