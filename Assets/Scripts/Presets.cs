@@ -414,6 +414,31 @@ public static class Presets
         gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 3);
     }
 
+    public static void MorleyLargeGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
+    {
+        gol.MorleyRules();
+        gol.SetDimensions(xAxis, 250, yAxis, 50);
+        gol.wrap = true;
+
+        gol.Clear();
+
+        int currentIndex = 0;
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 23);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 23);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 23);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 23);
+
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 24);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 24);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 2, yAxis, 25);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 25);
+
+        gol.SetAliveByAxes(currentIndex++, xAxis, 3, yAxis, 26);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 4, yAxis, 26);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 5, yAxis, 26);
+        gol.SetAliveByAxes(currentIndex++, xAxis, 6, yAxis, 26);
+    }
+
     public static void SimpleGlider3D(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
     {
         gol.Bays5766Rules();

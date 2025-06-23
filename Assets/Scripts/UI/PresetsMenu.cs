@@ -354,6 +354,14 @@ public class PresetsMenu : MonoBehaviour
         HideMenuAndDoUpdates();
     }
 
+    public void OnMorleyLargeGliderClicked()
+    {
+        root.gameBehaviour.game.MorleyLargeGlider();
+        root.gameBehaviour.RefreshAll();
+        root.gameCamera.distance = 125;
+        HideMenuAndDoUpdates();
+    }
+
     public void OnSimpleGlider3DClicked()
     {
         root.gameBehaviour.game.SimpleGlider3D();
