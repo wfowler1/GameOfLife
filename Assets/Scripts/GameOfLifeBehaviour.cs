@@ -216,7 +216,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
             PoolAll();
         }
 
-        for (int i = 0; i < game.liveCells.Length; ++i)
+        for (int i = 0; i < game.numAlive; ++i)
         {
             GameOfLife.Vector4i cell = game.liveCells[i];
             EnableCell(cell.x, cell.y, cell.z, cell.w);
