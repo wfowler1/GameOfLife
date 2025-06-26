@@ -21,7 +21,6 @@ public class OptionsMenu : MonoBehaviour
     public RectTransform randomizationPanel;
     public TMP_InputField randomizationField;
     public Toggle wrappingToggle;
-    public Toggle lowMemToggle;
     public Toggle debugToggle;
     public Button quitButton;
 
@@ -50,7 +49,6 @@ public class OptionsMenu : MonoBehaviour
         rulesPanel.gameObject.SetActive(show);
         randomizationPanel.gameObject.SetActive(show);
         wrappingToggle.gameObject.SetActive(show);
-        lowMemToggle.gameObject.SetActive(show);
         debugToggle.gameObject.SetActive(show);
         quitButton.gameObject.SetActive(show);
 
@@ -77,7 +75,6 @@ public class OptionsMenu : MonoBehaviour
         rulesSurvivalField.text = GetRulesFieldNumbers(root.gameBehaviour.game.survival);
         randomizationField.text = (root.gameBehaviour.game.initialPercentAlive * 100f).ToString();
         wrappingToggle.isOn = root.gameBehaviour.game.wrap;
-        lowMemToggle.isOn = root.gameBehaviour.lowMem;
         debugToggle.isOn = root.debug;
     }
 
@@ -174,11 +171,6 @@ public class OptionsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.wrap = wrappingToggle.isOn;
         root.gameBehaviour.forceFullUpdateNextTick = true;
-    }
-
-    public void OnLowMemToggleChanged()
-    {
-        root.gameBehaviour.lowMem = lowMemToggle.isOn;
     }
 
     public void OnDebugToggleChanged()

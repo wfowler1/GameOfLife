@@ -20,7 +20,6 @@ public class GameOfLifeBehaviour : MonoBehaviour
     private float _hue = 0.333f;
     [NonSerialized] public int numCubesInScene = 0; // Not pooled
 
-    public bool lowMem = false;
     public bool debug = false;
     [NonSerialized] public float debugTickTime = 0;
     [NonSerialized] public float debugRefreshTime = 0;
@@ -312,12 +311,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
         // Pool dead cells rather than leave them in place.
         // Cubes representing dead cells can then be repurposed to another live cell somewhere, so a new cube won't need to be instantiated.
         // This will save memory, but every time a cell is born a cube will have to be set up again
-        if (lowMem)
-        {
-            cellPool.PoolObject(cell);
-            --numCubesInScene;
-            cellRenderers[x, y, z, w] = null;
-        }
+        cellPool.PoolObject(cell);
+        --numCubesInScene;
+        cellRenderers[x, y, z, w] = null;
     }
 
 }
