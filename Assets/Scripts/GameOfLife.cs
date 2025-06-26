@@ -179,7 +179,7 @@ public class GameOfLife
             numChanges = -1;
         }
 
-        if (numChanges == 0 || numAlive == 0)
+        if (numChanges == 0)
         {
             return;
         }
