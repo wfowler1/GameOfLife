@@ -25,10 +25,10 @@ public class GameOfLife
 
         public override readonly int GetHashCode()
         {
-            return ~x ^ 
-                ((y << 8) | (y >> (24))) ^
-                ~((z << 16) | (z >> (16))) ^
-                ((w << 24) | (w >> (8)));
+            return ((x << 5) | ((x & int.MaxValue) >> 27)) ^
+                    ~((y << 11) | ((y & int.MaxValue) >> 21)) ^
+                    ((z << 17) | ((z & int.MaxValue) >> 15)) ^
+                    ~((w << 23) | ((w & int.MaxValue) >> 9));
         }
 
         public override readonly string ToString()
@@ -667,38 +667,23 @@ public class GameOfLife
         int birthHash = birth.Length << survival.Length % 5;
         for (int i = 0; i < birth.Length; ++i)
         {
-            birthHash += birth[i] << ((i * 7) % 23);
+            birthHash += birth[i] << (i * 7);
         }
         int survivalHash = survival.Length << birth.Length % 3;
         for (int i = 0; i < survival.Length; ++i)
         {
-            survivalHash += survival[i] << ((i * 11) % 19);
+            survivalHash += survival[i] << (i * 11);
         }
-        hash ^= (birthHash ^ ~survivalHash) ^ (wrap ? 1 << 31 : 1 << 15);
+        hash ^= birthHash ^ ~survivalHash;
 
         // Hash dimensions
         hash ^= dimensions.GetHashCode();
 
         // Hash population
-        for (int i = 0; i < _dimensions.x; ++i)
+        for (int i = 0; i < numAlive; ++i)
         {
-            for (int j = 0; j < _dimensions.y; ++j)
-            {
-                for (int k = 0; k < _dimensions.z; ++k)
-                {
-                    for (int l = 0; l < _dimensions.w; ++l)
-                    {
-                        if (cells[i, j, k, l])
-                        {
-                            hash ^= 1 << (i + (j * 2) + (k * 4) + (l * 8)) % 32;
-                        }
-                        else
-                        {
-                            hash ^= 1 << ((i * 8) + (j * 5) + (k * 3) + (l * 2)) % 32;
-                        }
-                    }
-                }
-            }
+            int vhash = liveCells[i].GetHashCode();
+            hash ^= (vhash << numAlive) | ((vhash & int.MaxValue) >> (32 - numAlive));
         }
 
         return hash;
