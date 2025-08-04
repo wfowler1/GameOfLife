@@ -52,38 +52,6 @@ public class GameOfLife
             Resize(value);
         }
     }
-    public int width
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get
-        {
-            return _dimensions.x;
-        }
-    }
-    public int height
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get
-        {
-            return _dimensions.y;
-        }
-    }
-    public int depth
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get
-        {
-            return _dimensions.z;
-        }
-    }
-    public int colors
-    {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        get
-        {
-            return _dimensions.w;
-        }
-    }
     public bool wrap = false;
     public float initialPercentAlive = 0.25f;
 
@@ -159,7 +127,7 @@ public class GameOfLife
     public bool alwaysCountNeighbors = false;
     public bool alwaysUseChanges = false;
     
-    public GameOfLife(int width, int height, int depth, int colors) : this(new Vector4i(width, height, depth, colors)) { }
+    public GameOfLife(int x, int y, int z, int w) : this(new Vector4i(x, y, z, w)) { }
 
     public GameOfLife(Vector4i dimensions)
     {
@@ -475,24 +443,24 @@ public class GameOfLife
     }
 
     /// <summary>
-    /// Resize the world to the given size.
+    /// Resize the world to the given size. Kills all cells if size changes.
     /// </summary>
-    /// <param name="newWidth">New width.</param>
-    /// <param name="newHeight">New height.</param>
-    /// <param name="newDepth">New depth.</param>
-    /// <param name="newColors">New colors.</param>
+    /// <param name="x">New x.</param>
+    /// <param name="y">New y.</param>
+    /// <param name="z">New z.</param>
+    /// <param name="w">New w.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public void Resize(int newWidth, int newHeight, int newDepth, int newColors)
+    public void Resize(int x, int y, int z, int w)
     {
         if (cells != null &&
-            _dimensions.x == newWidth &&
-            _dimensions.y == newHeight &&
-            _dimensions.z == newDepth &&
-            _dimensions.w == newColors &&
-            cells.GetLength(0) == newWidth &&
-            cells.GetLength(1) == newHeight &&
-            cells.GetLength(2) == newDepth &&
-            cells.GetLength(3) == newColors)
+            _dimensions.x == x &&
+            _dimensions.y == y &&
+            _dimensions.z == z &&
+            _dimensions.w == w &&
+            cells.GetLength(0) == x &&
+            cells.GetLength(1) == y &&
+            cells.GetLength(2) == z &&
+            cells.GetLength(3) == w)
         {
             Clear();
             return;
@@ -502,16 +470,16 @@ public class GameOfLife
         numAlive = 0;
         numChanges = 0;
 
-        numCells = newWidth * newHeight * newDepth * newColors;
+        numCells = x * y * z * w;
 
-        _dimensions.x = newWidth;
-        _dimensions.y = newHeight;
-        _dimensions.z = newDepth;
-        _dimensions.w = newColors;
+        _dimensions.x = x;
+        _dimensions.y = y;
+        _dimensions.z = z;
+        _dimensions.w = w;
 
         // Resize arrays
-        cells = new bool[newWidth, newHeight, newDepth, newColors];
-        neighborCounts = new byte[newWidth, newHeight, newDepth, newColors];
+        cells = new bool[x, y, z, w];
+        neighborCounts = new byte[x, y, z, w];
         changes = new Vector4i[numCells];
         liveCells = new Vector4i[numCells];
         //deadCells = new Vector4i[numCells];

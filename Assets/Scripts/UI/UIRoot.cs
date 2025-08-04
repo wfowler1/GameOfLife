@@ -35,13 +35,13 @@ public class UIRoot : MonoBehaviour
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("Dimensions: ")
-            .Append(gameBehaviour.game.width.ToString("###,##0"))
+            .Append(gameBehaviour.game.dimensions.x.ToString("###,##0"))
             .Append("x")
-            .Append(gameBehaviour.game.height.ToString("###,##0"))
+            .Append(gameBehaviour.game.dimensions.y.ToString("###,##0"))
             .Append("x")
-            .Append(gameBehaviour.game.depth.ToString("###,##0"))
+            .Append(gameBehaviour.game.dimensions.z.ToString("###,##0"))
             .Append("x")
-            .Append(gameBehaviour.game.colors.ToString("###,##0"))
+            .Append(gameBehaviour.game.dimensions.w.ToString("###,##0"))
             .Append("\nCells in world: ")
             .Append(gameBehaviour.game.numCells.ToString("###,##0"))
             .Append("\nAlive: ")
@@ -123,7 +123,7 @@ public class UIRoot : MonoBehaviour
         gameCamera.target = Vector3.zero;
         gameCamera.pitch = 0;
         gameCamera.yaw = 0;
-        gameCamera.distance = Mathf.Max(gameBehaviour.game.width, gameBehaviour.game.height, gameBehaviour.game.depth) * 1.2f;
+        gameCamera.distance = Mathf.Max(gameBehaviour.game.dimensions.x, gameBehaviour.game.dimensions.y, gameBehaviour.game.dimensions.z) * 1.2f;
     }
 
     public void OnStepClicked()

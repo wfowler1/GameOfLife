@@ -126,14 +126,14 @@ public class GameOfLifeBehaviour : MonoBehaviour
     // Renderer setup
     private void SizeChanged()
     {
-        if (cellRenderers != null && game.width == cellRenderers.GetLength(0) && game.height == cellRenderers.GetLength(1) && game.depth == cellRenderers.GetLength(2) && game.colors == cellRenderers.GetLength(3))
+        if (cellRenderers != null && game.dimensions.x == cellRenderers.GetLength(0) && game.dimensions.y == cellRenderers.GetLength(1) && game.dimensions.z == cellRenderers.GetLength(2) && game.dimensions.w == cellRenderers.GetLength(3))
         {
             return;
         }
 
         PoolAll();
 
-        cellRenderers = new Renderer[game.width, game.height, game.depth, game.colors];
+        cellRenderers = new Renderer[game.dimensions.x, game.dimensions.y, game.dimensions.z, game.dimensions.w];
         SetUpMaterials();
     }
 
@@ -145,7 +145,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
 
         Shader shader = Shader.Find("Standard");
-        for (int i = materials.Count; i < game.colors; ++i)
+        for (int i = materials.Count; i < game.dimensions.w; ++i)
         {
             Material material = new Material(shader);
             materials.Add(material);
@@ -158,9 +158,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
     private void ChangeColors()
     {
-        for (int i = 0; i < game.colors; ++i)
+        for (int i = 0; i < game.dimensions.w; ++i)
         {
-            materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)game.colors)) % 1f, 1, 1));
+            materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)game.dimensions.w)) % 1f, 1, 1));
         }
     }
 
@@ -171,7 +171,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
     /// </summary>
     public void RefreshFromCells()
     {
-        if (game.width != cellRenderers.GetLength(0) || game.height != cellRenderers.GetLength(1) || game.depth != cellRenderers.GetLength(2) || game.colors != cellRenderers.GetLength(3))
+        if (game.dimensions.x != cellRenderers.GetLength(0) || game.dimensions.y != cellRenderers.GetLength(1) || game.dimensions.z != cellRenderers.GetLength(2) || game.dimensions.w != cellRenderers.GetLength(3))
         {
             SizeChanged();
         }
@@ -180,13 +180,13 @@ public class GameOfLifeBehaviour : MonoBehaviour
             PoolAll();
         }
 
-        for (int i = 0; i < game.width; ++i)
+        for (int i = 0; i < game.dimensions.x; ++i)
         {
-            for (int j = 0; j < game.height; ++j)
+            for (int j = 0; j < game.dimensions.y; ++j)
             {
-                for (int k = 0; k < game.depth; ++k)
+                for (int k = 0; k < game.dimensions.z; ++k)
                 {
-                    for (int l = 0; l < game.colors; ++l)
+                    for (int l = 0; l < game.dimensions.w; ++l)
                     {
                         if (game.cells[i, j, k, l])
                         {
@@ -206,7 +206,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
             return;
         }
 
-        if (game.width != cellRenderers.GetLength(0) || game.height != cellRenderers.GetLength(1) || game.depth != cellRenderers.GetLength(2) || game.colors != cellRenderers.GetLength(3))
+        if (game.dimensions.x != cellRenderers.GetLength(0) || game.dimensions.y != cellRenderers.GetLength(1) || game.dimensions.z != cellRenderers.GetLength(2) || game.dimensions.w != cellRenderers.GetLength(3))
         {
             SizeChanged();
         }
@@ -285,11 +285,11 @@ public class GameOfLifeBehaviour : MonoBehaviour
         GameObject cell = cellPool.GetObject();
         ++numCubesInScene;
 
-        cell.transform.position = new Vector3(x - (game.width - 1) / 2f, y - (game.height - 1) / 2f, z - (game.depth - 1) / 2f);
+        cell.transform.position = new Vector3(x - (game.dimensions.x - 1) / 2f, y - (game.dimensions.y - 1) / 2f, z - (game.dimensions.z - 1) / 2f);
         cell.transform.rotation = Quaternion.identity;
 
         // Apply some rotation as well to prevent Z-fighting
-        cell.transform.Rotate(Vector3.one, w * 120 / (float)game.colors);
+        cell.transform.Rotate(Vector3.one, w * 120 / (float)game.dimensions.w);
         MeshRenderer renderer = cell.GetComponent<MeshRenderer>();
         renderer.material = materials[w];
 

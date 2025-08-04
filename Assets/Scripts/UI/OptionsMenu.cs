@@ -67,10 +67,10 @@ public class OptionsMenu : MonoBehaviour
 
     public void UpdateValues()
     {
-        xField.text = root.gameBehaviour.game.width.ToString();
-        yField.text = root.gameBehaviour.game.height.ToString();
-        zField.text = root.gameBehaviour.game.depth.ToString();
-        wField.text = root.gameBehaviour.game.colors.ToString();
+        xField.text = root.gameBehaviour.game.dimensions.x.ToString();
+        yField.text = root.gameBehaviour.game.dimensions.y.ToString();
+        zField.text = root.gameBehaviour.game.dimensions.z.ToString();
+        wField.text = root.gameBehaviour.game.dimensions.w.ToString();
         rulesBirthField.text = GetRulesFieldNumbers(root.gameBehaviour.game.birth);
         rulesSurvivalField.text = GetRulesFieldNumbers(root.gameBehaviour.game.survival);
         randomizationField.text = (root.gameBehaviour.game.initialPercentAlive * 100f).ToString();
@@ -114,7 +114,7 @@ public class OptionsMenu : MonoBehaviour
     private void SetDimensions(int width, int height, int depth, int colors)
     {
         root.gameBehaviour.Resize(width, height, depth, colors);
-        root.gameCamera.distance = Mathf.Max(root.gameBehaviour.game.width, root.gameBehaviour.game.height, root.gameBehaviour.game.depth) * 1.6f;
+        root.gameCamera.distance = Mathf.Max(root.gameBehaviour.game.dimensions.x, root.gameBehaviour.game.dimensions.y, root.gameBehaviour.game.dimensions.z) * 1.6f;
     }
 
     public void OnColorSliderChanged(Slider sender)
