@@ -56,7 +56,13 @@ public class GameOfLife
     public float initialPercentAlive = 0.25f;
 
     // Rules
+    /// <summary>
+    /// Cell birth rules.
+    /// </summary>
     public int[] birth = new int[] { 3 };
+    /// <summary>
+    /// Cell survival rules.
+    /// </summary>
     public int[] survival = new int[] { 2, 3 };
 
     // World state
@@ -64,6 +70,9 @@ public class GameOfLife
     /// Current states of all cells.
     /// </summary>
     public bool[,,,] cells;
+    /// <summary>
+    /// Count of live neighbors for a given cell.
+    /// </summary>
     private byte[,,,] neighborCounts;
     /// <summary>
     /// List of live cells. Updated when randomizing, and during cell update phase. Used in counting neighbor phase. Length is <see cref="numAlive"/>.
@@ -75,7 +84,7 @@ public class GameOfLife
     //public Vector4i[] deadCells;
     /// <summary>
     /// List of changed cells since last generation. Updated during cell update phase, when <see cref="SetState(bool, Vector4i)"/> is called.<br/>
-    /// Used in counting neighbor phase. Length is <see cref="numChanges"/>. Length is <see cref="numChanges"/>.
+    /// Used in counting neighbor phase. Length is <see cref="numChanges"/>.
     /// </summary>
     public Vector4i[] changes;
 
@@ -257,32 +266,42 @@ public class GameOfLife
         return -1;
     }
 
+    /// <summary>
+    /// Count neighbors using whatever information is available.
+    /// </summary>
     private void UpdateNumLiveNeighborsForAll()
     {
         if ((numAlive < numChanges && !alwaysUseChanges) || alwaysCountNeighbors || numChanges < 0 || changes == null)
         {
             if (liveCells == null)
             {
+                // If we currently have no list of live cells, we need to count neighbors for all cells.
                 liveCells = new Vector4i[numCells];
                 //deadCells = new Vector4i[numCells];
                 CountLiveNeighborsForAll();
             }
             else
             {
+                // If we have a list of live cells, that list is shorter than the list of changed cells, and our settings allow it,
+                // count neighbors for live cells only. Cells not in the list of live cells are dead and do not need to be counted.
                 ApplyLiveNeighborsForAll();
             }
         }
         else
         {
+            // If we have a list of changes, that list is shorter than the list of live cells, and our settings allow it,
+            // apply results of cell changes to neighbor counts rather than counting all from scratch.
             ApplyNeighborChangesForAll();
         }
 
         numChanges = 0;
     }
 
+    /// <summary>
+    /// Do a full neighbor count from scratch. Slow, but doesn't depend on any information other than the current state of the world.
+    /// </summary>
     private void CountLiveNeighborsForAll()
     {
-        // Do a full neighbor count from scratch
         Array.Clear(neighborCounts, 0, neighborCounts.Length);
         for (int i = 0; i < _dimensions.x; ++i)
         {
@@ -302,19 +321,24 @@ public class GameOfLife
         }
     }
 
+    /// <summary>
+    /// Do a full neighbor count from a list of currently live cells.
+    /// </summary>
     private void ApplyLiveNeighborsForAll()
     {
-        // Do a full neighbor count from scratch
         Array.Clear(neighborCounts, 0, neighborCounts.Length);
+
         for (int i = 0; i < numAlive; ++i)
         {
             UpdateNeighbors(liveCells[i]);
         }
     }
 
+    /// <summary>
+    /// Only apply changes to neighbor counts from last tick.
+    /// </summary>
     private void ApplyNeighborChangesForAll()
     {
-        // Only apply changes to neighbors from last tick
         for (int i = 0; i < numChanges; ++i)
         {
             UpdateNeighbors(changes[i]);
@@ -324,7 +348,8 @@ public class GameOfLife
     }
 
     /// <summary>
-    /// Updates the live neighbor lists for all neighbors of a cell, based on the state of a the cell.
+    /// Adds or subtracts 1 from the live neighbor counts for all neighbors of <paramref name="cell"/>, based on the state of the cell,
+    /// taking into account the geometry of the world.
     /// </summary>
     /// <param name="cell">The cell.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -339,7 +364,8 @@ public class GameOfLife
     private int[] neighborZ = new int[] { 0, 0, 0 };
     private int[] neighborW = new int[] { 0, 0, 0 };
     /// <summary>
-    /// Updates the live neighbor lists for all neighbors of a cell, based on the state of a the cell.
+    /// Adds or subtracts 1 from the live neighbor counts for all neighbors of a cell, based on the state of the cell,
+    /// taking into account the geometry of the world.
     /// </summary>
     /// <param name="x">X coordinate of the cell.</param>
     /// <param name="y">Y coordinate of the cell.</param>
@@ -352,6 +378,7 @@ public class GameOfLife
         neighborZ[1] = z;
         neighborW[1] = w;
 
+        // We don't want to count the same cells more than once, even when wrapping (like when one of the dimensions is 2 wide).
         if (wrap)
         {
             // We don't want to count the same cells more than once, even when wrapping (like when one of the dimensions is 2 wide).
@@ -486,7 +513,7 @@ public class GameOfLife
     }
 
     /// <summary>
-    /// Resize the world to the given size.
+    /// Resize the world to the given size. Kills all cells if size changes.
     /// </summary>
     /// <param name="newDimensions">New size.</param>
     public void Resize(Vector4i newDimensions)

@@ -33,7 +33,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
         set
         {
             _hue = value;
-            ChangeColors();
+            UpdateColors();
         }
     }
 
@@ -83,6 +83,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
     }
 
     // Game management
+    /// <summary>
+    /// Tick simulation one step and update visuals.
+    /// </summary>
     public void Tick()
     {
         game.alwaysUseChanges = alwaysUseChanges;
@@ -124,6 +127,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
     }
 
     // Renderer setup
+    /// <summary>
+    /// Resets the world to use the new size of the GoL.
+    /// </summary>
     private void SizeChanged()
     {
         if (cellRenderers != null && game.dimensions.x == cellRenderers.GetLength(0) && game.dimensions.y == cellRenderers.GetLength(1) && game.dimensions.z == cellRenderers.GetLength(2) && game.dimensions.w == cellRenderers.GetLength(3))
@@ -137,6 +143,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
         SetUpMaterials();
     }
 
+    /// <summary>
+    /// Creates material instances as needed, and updates colors.
+    /// </summary>
     private void SetUpMaterials()
     {
         if (materials == null)
@@ -153,10 +162,13 @@ public class GameOfLifeBehaviour : MonoBehaviour
             materials[i].SetFloat("_Glossiness", 0.1f);
         }
 
-        ChangeColors();
+        UpdateColors();
     }
 
-    private void ChangeColors()
+    /// <summary>
+    /// Updates colors on all materials for uniform chromatic separation when representing the fourth dimension.
+    /// </summary>
+    private void UpdateColors()
     {
         for (int i = 0; i < game.dimensions.w; ++i)
         {
@@ -198,6 +210,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pools all cells and sets up the world from scratch.
+    /// </summary>
     public void RefreshAll()
     {
         if (game.liveCells == null)
@@ -223,6 +238,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Updates the world based on the list of changes in the GoL.
+    /// </summary>
     public void RefreshChanged()
     {
         if (game.changes == null)
@@ -245,6 +263,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Pools all cells.
+    /// </summary>
     private void PoolAll()
     {
         numCubesInScene = 0;
@@ -274,6 +295,13 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets up a cube for the cell at the given coordinates.
+    /// </summary>
+    /// <param name="x">X coordinate of the cell.</param>
+    /// <param name="y">Y coordinate of the cell.</param>
+    /// <param name="z">Z coordinate of the cell.</param>
+    /// <param name="w">W coordinate of the cell.</param>
     private void EnableCell(int x, int y, int z, int w)
     {
         if (cellRenderers[x, y, z, w] != null)
@@ -298,6 +326,13 @@ public class GameOfLifeBehaviour : MonoBehaviour
         cellRenderers[x, y, z, w] = renderer;
     }
 
+    /// <summary>
+    /// Disables and pools a cube for the cell at the given coordinates.
+    /// </summary>
+    /// <param name="x">X coordinate of the cell.</param>
+    /// <param name="y">Y coordinate of the cell.</param>
+    /// <param name="z">Z coordinate of the cell.</param>
+    /// <param name="w">W coordinate of the cell.</param>
     private void DisableCell(int x, int y, int z, int w)
     {
         if (cellRenderers[x, y, z, w] == null)
