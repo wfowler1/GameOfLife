@@ -8,7 +8,6 @@ public class UIRoot : MonoBehaviour
 {
     public Canvas canvas;
     public ModalDialog modal;
-    public CameraControl gameCamera;
     public GameOfLifeBehaviour gameBehaviour;
     public TextMeshProUGUI rulesText;
     public OptionsMenu optionsMenu;
@@ -128,10 +127,7 @@ public class UIRoot : MonoBehaviour
 
     public void OnRecenterCameraClicked()
     {
-        gameCamera.target = Vector3.zero;
-        gameCamera.pitch = 0;
-        gameCamera.yaw = 0;
-        gameCamera.distance = Mathf.Max(gameBehaviour.game.dimensions.x, gameBehaviour.game.dimensions.y, gameBehaviour.game.dimensions.z) * 1.2f;
+        gameBehaviour.RecenterCamera();
     }
 
     public void OnStepClicked()

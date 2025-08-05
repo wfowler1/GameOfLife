@@ -132,6 +132,7 @@ public class PresetsMenu : MonoBehaviour
         SetMenuState(false);
         root.optionsMenu.UpdateValues();
         root.gameBehaviour.forceFullUpdateNextTick = true;
+        root.gameBehaviour.RecenterCamera();
     }
 
     public void OnNew2DClicked()
@@ -294,7 +295,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.SimpleGlider();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 20 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 20 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -302,7 +303,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.SpaceShips();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 20 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 20 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -310,7 +311,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.Pulsar();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 17 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 17 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -318,7 +319,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.PentaDecathlon();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 18 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 18 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -326,7 +327,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.GosperGun();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 23 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 23 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -334,7 +335,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.Acorn();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 214;
+        root.gameBehaviour.gameCamera.distance = 214;
         HideMenuAndDoUpdates();
     }
 
@@ -342,7 +343,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.Fredkin64();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 128;
+        root.gameBehaviour.gameCamera.distance = 128;
         HideMenuAndDoUpdates();
     }
 
@@ -350,7 +351,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.MorleyGlider();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 72;
+        root.gameBehaviour.gameCamera.distance = 72;
         HideMenuAndDoUpdates();
     }
 
@@ -358,7 +359,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.MorleyLargeGlider();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 125;
+        root.gameBehaviour.gameCamera.distance = 125;
         HideMenuAndDoUpdates();
     }
 
@@ -366,7 +367,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.SimpleGlider3D();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 32 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 32 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -374,7 +375,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.Glider4555();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 32 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 32 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -382,7 +383,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.GliderB5S47();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 32 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 32 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -390,7 +391,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.EvansGlider();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 16 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 16 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -398,7 +399,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.Bays5766InfiniGlider();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 16 * 1.6f;
+        root.gameBehaviour.gameCamera.distance = 16 * 1.6f;
         HideMenuAndDoUpdates();
     }
 
@@ -406,7 +407,7 @@ public class PresetsMenu : MonoBehaviour
     {
         root.gameBehaviour.game.Acorn3D();
         root.gameBehaviour.RefreshAll();
-        root.gameCamera.distance = 214;
+        root.gameBehaviour.gameCamera.distance = 214;
         HideMenuAndDoUpdates();
     }
 }

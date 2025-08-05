@@ -111,7 +111,7 @@ public class OptionsMenu : MonoBehaviour
     private void SetDimensions(int width, int height, int depth, int colors)
     {
         root.gameBehaviour.Resize(width, height, depth, colors);
-        root.gameCamera.distance = Mathf.Max(root.gameBehaviour.game.dimensions.x, root.gameBehaviour.game.dimensions.y, root.gameBehaviour.game.dimensions.z) * 1.6f;
+        root.gameBehaviour.RecenterCamera();
     }
 
     public void OnColorSliderChanged(Slider sender)

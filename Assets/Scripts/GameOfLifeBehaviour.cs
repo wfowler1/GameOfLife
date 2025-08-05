@@ -7,7 +7,8 @@ public class GameOfLifeBehaviour : MonoBehaviour
     public GameObject cellPrefab;
 
     public GameOfLife game;
-    
+    public CameraControl gameCamera;
+
     private Renderer[,,,] cellRenderers;
     private ObjectPool _cellPool;
     private List<Material> materials;
@@ -62,6 +63,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
 
         SizeChanged();
         Randomize();
+        RecenterCamera();
 
         paused = true;
     }
@@ -124,6 +126,14 @@ public class GameOfLifeBehaviour : MonoBehaviour
     {
         game.Clear();
         RefreshAll();
+    }
+
+    public void RecenterCamera()
+    {
+        gameCamera.target = new Vector3(Math.Abs(game.dimensions.x) / 2, Math.Abs(game.dimensions.y) / 2, Math.Abs(game.dimensions.z) / 2);
+        gameCamera.pitch = 0;
+        gameCamera.yaw = 0;
+        gameCamera.distance = Mathf.Max(Math.Abs(game.dimensions.x), Math.Abs(game.dimensions.y), Math.Abs(game.dimensions.z)) * 1.5f;
     }
 
     // Renderer setup
