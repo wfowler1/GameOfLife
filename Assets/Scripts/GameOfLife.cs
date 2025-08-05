@@ -52,7 +52,6 @@ public class GameOfLife
             Resize(value);
         }
     }
-    public bool wrap = false;
     public float initialPercentAlive = 0.25f;
 
     // Rules
@@ -151,12 +150,7 @@ public class GameOfLife
     {
         ++tickNum;
 
-        if (force)
-        {
-            numChanges = -1;
-        }
-
-        if (numChanges == 0)
+        if (numChanges == 0 && !force)
         {
             return;
         }
@@ -184,13 +178,17 @@ public class GameOfLife
         int numLiveCells = 0;
         //int numDeadCells = 0;
 
-        for (int i = 0; i < _dimensions.x; ++i)
+        int x = Math.Abs(_dimensions.x);
+        int y = Math.Abs(_dimensions.y);
+        int z = Math.Abs(_dimensions.z);
+        int w = Math.Abs(_dimensions.w);
+        for (int i = 0; i < x; ++i)
         {
-            for (int j = 0; j < _dimensions.y; ++j)
+            for (int j = 0; j < y; ++j)
             {
-                for (int k = 0; k < _dimensions.z; ++k)
+                for (int k = 0; k < z; ++k)
                 {
-                    for (int l = 0; l < _dimensions.w; ++l)
+                    for (int l = 0; l < w; ++l)
                     {
                         bool wasAlive = cells[i, j, k, l];
                         if (wasAlive)
@@ -303,13 +301,17 @@ public class GameOfLife
     private void CountLiveNeighborsForAll()
     {
         Array.Clear(neighborCounts, 0, neighborCounts.Length);
-        for (int i = 0; i < _dimensions.x; ++i)
+        int x = Math.Abs(_dimensions.x);
+        int y = Math.Abs(_dimensions.y);
+        int z = Math.Abs(_dimensions.z);
+        int w = Math.Abs(_dimensions.w);
+        for (int i = 0; i < x; ++i)
         {
-            for (int j = 0; j < _dimensions.y; ++j)
+            for (int j = 0; j < y; ++j)
             {
-                for (int k = 0; k < _dimensions.z; ++k)
+                for (int k = 0; k < z; ++k)
                 {
-                    for (int l = 0; l < _dimensions.w; ++l)
+                    for (int l = 0; l < w; ++l)
                     {
                         if (cells[i, j, k, l])
                         {
@@ -379,47 +381,67 @@ public class GameOfLife
         neighborW[1] = w;
 
         // We don't want to count the same cells more than once, even when wrapping (like when one of the dimensions is 2 wide).
-        if (wrap)
+        if (_dimensions.x < 0)
         {
-            // We don't want to count the same cells more than once, even when wrapping (like when one of the dimensions is 2 wide).
-            WrappingClampAllNoDuplicates(neighborX, x, 0, _dimensions.x - 1);
-            WrappingClampAllNoDuplicates(neighborY, y, 0, _dimensions.y - 1);
-            WrappingClampAllNoDuplicates(neighborZ, z, 0, _dimensions.z - 1);
-            WrappingClampAllNoDuplicates(neighborW, w, 0, _dimensions.w - 1);
+            WrappingClampAllNoDuplicates(neighborX, x, 0, -_dimensions.x - 1);
         }
         else
         {
             neighborX[0] = x - 1;
             neighborX[2] = x + 1;
+        }
+
+        if (_dimensions.y < 0)
+        {
+            WrappingClampAllNoDuplicates(neighborY, y, 0, -_dimensions.y - 1);
+        }
+        else
+        {
             neighborY[0] = y - 1;
             neighborY[2] = y + 1;
+        }
+
+        if (_dimensions.z < 0)
+        {
+            WrappingClampAllNoDuplicates(neighborZ, z, 0, -_dimensions.z - 1);
+        }
+        else
+        {
             neighborZ[0] = z - 1;
             neighborZ[2] = z + 1;
+        }
+
+        if (_dimensions.w < 0)
+        {
+            WrappingClampAllNoDuplicates(neighborW, w, 0, -_dimensions.w - 1);
+        }
+        else
+        {
             neighborW[0] = w - 1;
             neighborW[2] = w + 1;
         }
 
         for (int i = 0; i < 3; ++i)
         {
-            if (neighborX[i] < 0 || neighborX[i] >= _dimensions.x)
+            if (neighborX[i] < 0 || neighborX[i] >= cells.GetLength(0))
             {
                 continue;
             }
             for (int j = 0; j < 3; ++j)
             {
-                if (neighborY[j] < 0 || neighborY[j] >= _dimensions.y)
+                if (neighborY[j] < 0 || neighborY[j] >= cells.GetLength(1))
                 {
                     continue;
                 }
                 for (int k = 0; k < 3; ++k)
                 {
-                    if (neighborZ[k] < 0 || neighborZ[k] >= _dimensions.z)
+                    if (neighborZ[k] < 0 || neighborZ[k] >= cells.GetLength(2))
                     {
                         continue;
                     }
                     for (int l = 0; l < 3; ++l)
                     {
-                        if (neighborW[l] < 0 || neighborW[l] >= _dimensions.w)
+                        if (neighborW[l] < 0 || neighborW[l] >= cells.GetLength(3))
                         {
                             continue;
                         }
@@ -479,17 +501,27 @@ public class GameOfLife
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Resize(int x, int y, int z, int w)
     {
+        int absX = Math.Abs(x);
+        int absY = Math.Abs(y);
+        int absZ = Math.Abs(z);
+        int absW = Math.Abs(w);
+
+        Vector4i oldDimensions = _dimensions;
+        _dimensions.x = x;
+        _dimensions.y = y;
+        _dimensions.z = z;
+        _dimensions.w = w;
+
         if (cells != null &&
-            _dimensions.x == x &&
-            _dimensions.y == y &&
-            _dimensions.z == z &&
-            _dimensions.w == w &&
-            cells.GetLength(0) == x &&
-            cells.GetLength(1) == y &&
-            cells.GetLength(2) == z &&
-            cells.GetLength(3) == w)
+            Math.Abs(oldDimensions.x) == absX &&
+            Math.Abs(oldDimensions.y) == absY &&
+            Math.Abs(oldDimensions.z) == absZ &&
+            Math.Abs(oldDimensions.w) == absW &&
+            cells.GetLength(0) == absX &&
+            cells.GetLength(1) == absY &&
+            cells.GetLength(2) == absZ &&
+            cells.GetLength(3) == absW)
         {
-            Clear();
             return;
         }
 
@@ -497,16 +529,11 @@ public class GameOfLife
         numAlive = 0;
         numChanges = 0;
 
-        numCells = x * y * z * w;
-
-        _dimensions.x = x;
-        _dimensions.y = y;
-        _dimensions.z = z;
-        _dimensions.w = w;
+        numCells = absX * absY * absZ * absW;
 
         // Resize arrays
-        cells = new bool[x, y, z, w];
-        neighborCounts = new byte[x, y, z, w];
+        cells = new bool[absX, absY, absZ, absW];
+        neighborCounts = new byte[absX, absY, absZ, absW];
         changes = new Vector4i[numCells];
         liveCells = new Vector4i[numCells];
         //deadCells = new Vector4i[numCells];
@@ -539,14 +566,18 @@ public class GameOfLife
             rng = new Random();
         }
 
+        int x = Math.Abs(_dimensions.x);
+        int y = Math.Abs(_dimensions.y);
+        int z = Math.Abs(_dimensions.z);
+        int w = Math.Abs(_dimensions.w);
         //int deadCellCount = 0;
-        for (int i = 0; i < _dimensions.x; ++i)
+        for (int i = 0; i < x; ++i)
         {
-            for (int j = 0; j < _dimensions.y; ++j)
+            for (int j = 0; j < y; ++j)
             {
-                for (int k = 0; k < _dimensions.z; ++k)
+                for (int k = 0; k < z; ++k)
                 {
-                    for (int l = 0; l < _dimensions.w; ++l)
+                    for (int l = 0; l < w; ++l)
                     {
                         bool alive = rng.NextDouble() <= initialPercentAlive;
                         if (alive)
@@ -637,7 +668,7 @@ public class GameOfLife
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void ToggleState(Vector4i cell)
     {
-        ToggleState(cell.x, cell.y, cell.z, cell.w);
+        SetState(cell.x, cell.y, cell.z, cell.w, !cells[cell.x, cell.y, cell.z, cell.w]);
     }
 
     /// <summary>

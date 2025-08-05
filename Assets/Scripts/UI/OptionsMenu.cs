@@ -20,7 +20,6 @@ public class OptionsMenu : MonoBehaviour
     public TMP_InputField rulesSurvivalField;
     public RectTransform randomizationPanel;
     public TMP_InputField randomizationField;
-    public Toggle wrappingToggle;
     public Toggle debugToggle;
     public Button quitButton;
 
@@ -48,7 +47,6 @@ public class OptionsMenu : MonoBehaviour
         colorSliderPanel.gameObject.SetActive(show);
         rulesPanel.gameObject.SetActive(show);
         randomizationPanel.gameObject.SetActive(show);
-        wrappingToggle.gameObject.SetActive(show);
         debugToggle.gameObject.SetActive(show);
         quitButton.gameObject.SetActive(show);
 
@@ -74,7 +72,6 @@ public class OptionsMenu : MonoBehaviour
         rulesBirthField.text = GetRulesFieldNumbers(root.gameBehaviour.game.birth);
         rulesSurvivalField.text = GetRulesFieldNumbers(root.gameBehaviour.game.survival);
         randomizationField.text = (root.gameBehaviour.game.initialPercentAlive * 100f).ToString();
-        wrappingToggle.isOn = root.gameBehaviour.game.wrap;
         debugToggle.isOn = root.debug;
     }
 
@@ -165,12 +162,6 @@ public class OptionsMenu : MonoBehaviour
     private string GetRulesFieldNumbers(int[] nums)
     {
         return string.Join(' ', nums);
-    }
-
-    public void OnWrappingToggleChanged()
-    {
-        root.gameBehaviour.game.wrap = wrappingToggle.isOn;
-        root.gameBehaviour.forceFullUpdateNextTick = true;
     }
 
     public void OnDebugToggleChanged()

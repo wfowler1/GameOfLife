@@ -132,14 +132,15 @@ public class GameOfLifeBehaviour : MonoBehaviour
     /// </summary>
     private void SizeChanged()
     {
-        if (cellRenderers != null && game.dimensions.x == cellRenderers.GetLength(0) && game.dimensions.y == cellRenderers.GetLength(1) && game.dimensions.z == cellRenderers.GetLength(2) && game.dimensions.w == cellRenderers.GetLength(3))
+        GameOfLife.Vector4i size = new GameOfLife.Vector4i(Math.Abs(game.dimensions.x), Math.Abs(game.dimensions.y), Math.Abs(game.dimensions.z), Math.Abs(game.dimensions.w));
+        if (cellRenderers != null && size.x == cellRenderers.GetLength(0) && size.y == cellRenderers.GetLength(1) && size.z == cellRenderers.GetLength(2) && size.w == cellRenderers.GetLength(3))
         {
             return;
         }
 
         PoolAll();
 
-        cellRenderers = new Renderer[game.dimensions.x, game.dimensions.y, game.dimensions.z, game.dimensions.w];
+        cellRenderers = new Renderer[size.x, size.y, size.z, size.w];
         SetUpMaterials();
     }
 
@@ -154,7 +155,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
         }
 
         Shader shader = Shader.Find("Standard");
-        for (int i = materials.Count; i < game.dimensions.w; ++i)
+        for (int i = materials.Count; i < Math.Abs(game.dimensions.w); ++i)
         {
             Material material = new Material(shader);
             materials.Add(material);
@@ -170,9 +171,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
     /// </summary>
     private void UpdateColors()
     {
-        for (int i = 0; i < game.dimensions.w; ++i)
+        for (int i = 0; i < Math.Abs(game.dimensions.w); ++i)
         {
-            materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)game.dimensions.w)) % 1f, 1, 1));
+            materials[i].SetColor("_Color", Color.HSVToRGB((_hue + (i / (float)Math.Abs(game.dimensions.w))) % 1f, 1, 1));
         }
     }
 
@@ -183,7 +184,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
     /// </summary>
     public void RefreshFromCells()
     {
-        if (game.dimensions.x != cellRenderers.GetLength(0) || game.dimensions.y != cellRenderers.GetLength(1) || game.dimensions.z != cellRenderers.GetLength(2) || game.dimensions.w != cellRenderers.GetLength(3))
+        GameOfLife.Vector4i size = new GameOfLife.Vector4i(Math.Abs(game.dimensions.x), Math.Abs(game.dimensions.y), Math.Abs(game.dimensions.z), Math.Abs(game.dimensions.w));
+
+        if (size.x != cellRenderers.GetLength(0) || size.y != cellRenderers.GetLength(1) || size.z != cellRenderers.GetLength(2) || size.w != cellRenderers.GetLength(3))
         {
             SizeChanged();
         }
@@ -192,13 +195,13 @@ public class GameOfLifeBehaviour : MonoBehaviour
             PoolAll();
         }
 
-        for (int i = 0; i < game.dimensions.x; ++i)
+        for (int i = 0; i < size.x; ++i)
         {
-            for (int j = 0; j < game.dimensions.y; ++j)
+            for (int j = 0; j < size.y; ++j)
             {
-                for (int k = 0; k < game.dimensions.z; ++k)
+                for (int k = 0; k < size.z; ++k)
                 {
-                    for (int l = 0; l < game.dimensions.w; ++l)
+                    for (int l = 0; l < size.w; ++l)
                     {
                         if (game.cells[i, j, k, l])
                         {
@@ -221,7 +224,9 @@ public class GameOfLifeBehaviour : MonoBehaviour
             return;
         }
 
-        if (game.dimensions.x != cellRenderers.GetLength(0) || game.dimensions.y != cellRenderers.GetLength(1) || game.dimensions.z != cellRenderers.GetLength(2) || game.dimensions.w != cellRenderers.GetLength(3))
+        GameOfLife.Vector4i size = new GameOfLife.Vector4i(Math.Abs(game.dimensions.x), Math.Abs(game.dimensions.y), Math.Abs(game.dimensions.z), Math.Abs(game.dimensions.w));
+
+        if (size.x != cellRenderers.GetLength(0) || size.y != cellRenderers.GetLength(1) || size.z != cellRenderers.GetLength(2) || size.w != cellRenderers.GetLength(3))
         {
             SizeChanged();
         }
@@ -252,13 +257,18 @@ public class GameOfLifeBehaviour : MonoBehaviour
         for (int i = 0; i < game.numChanges; ++i)
         {
             GameOfLife.Vector4i cell = game.changes[i];
+            if (!game.cells[cell.x, cell.y, cell.z, cell.w])
+            {
+                DisableCell(cell.x, cell.y, cell.z, cell.w);
+            }
+        }
+
+        for (int i = 0; i < game.numChanges; ++i)
+        {
+            GameOfLife.Vector4i cell = game.changes[i];
             if (game.cells[cell.x, cell.y, cell.z, cell.w])
             {
                 EnableCell(cell.x, cell.y, cell.z, cell.w);
-            }
-            else
-            {
-                DisableCell(cell.x, cell.y, cell.z, cell.w);
             }
         }
     }
@@ -313,7 +323,7 @@ public class GameOfLifeBehaviour : MonoBehaviour
         GameObject cell = cellPool.GetObject();
         ++numCubesInScene;
 
-        cell.transform.position = new Vector3(x - (game.dimensions.x - 1) / 2f, y - (game.dimensions.y - 1) / 2f, z - (game.dimensions.z - 1) / 2f);
+        cell.transform.position = new Vector3(x, y, z);
         cell.transform.rotation = Quaternion.identity;
 
         // Apply some rotation as well to prevent Z-fighting

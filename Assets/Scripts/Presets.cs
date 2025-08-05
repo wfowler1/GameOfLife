@@ -1,10 +1,12 @@
+using System;
+
 public static class Presets
 {
     public static void ConwayRules(this GameOfLife gol)
     {
         gol.birth = new int[] { 3 };
         gol.survival = new int[] { 2, 3 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.4f;
     }
 
@@ -12,7 +14,7 @@ public static class Presets
     {
         gol.birth = new int[] { 3 };
         gol.survival = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.0225f;
     }
 
@@ -20,7 +22,7 @@ public static class Presets
     {
         gol.birth = new int[] { 3, 6 };
         gol.survival = new int[] { 2, 3 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.4f;
     }
 
@@ -28,7 +30,7 @@ public static class Presets
     {
         gol.birth = new int[] { 3, 4, 5 };
         gol.survival = new int[] { 4, 5, 6, 7 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.16f;
     }
 
@@ -36,7 +38,7 @@ public static class Presets
     {
         gol.birth = new int[] { 1, 3, 5, 7 };
         gol.survival = new int[] { 1, 3, 5, 7 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.001f;
     }
 
@@ -44,7 +46,7 @@ public static class Presets
     {
         gol.birth = new int[] { 2 };
         gol.survival = new int[] { };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.01f;
     }
 
@@ -52,7 +54,7 @@ public static class Presets
     {
         gol.birth = new int[] { 3, 4 };
         gol.survival = new int[] { 3, 4 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.1f;
     }
 
@@ -60,7 +62,7 @@ public static class Presets
     {
         gol.birth = new int[] { 3, 6, 8 };
         gol.survival = new int[] { 2, 4, 5 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.4f;
     }
 
@@ -68,7 +70,7 @@ public static class Presets
     {
         gol.birth = new int[] { 4, 6, 7, 8 };
         gol.survival = new int[] { 3, 5, 6, 7, 8 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.5f;
     }
 
@@ -76,7 +78,7 @@ public static class Presets
     {
         gol.birth = new int[] { 5, 6, 7, 8 };
         gol.survival = new int[] { 4, 5, 6, 7, 8 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.5f;
     }
 
@@ -84,7 +86,7 @@ public static class Presets
     {
         gol.birth = new int[] { 4, 5, 6, 7, 8 };
         gol.survival = new int[] { 2, 3, 4, 5 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.2f;
     }
 
@@ -92,7 +94,7 @@ public static class Presets
     {
         gol.birth = new int[] { 6 };
         gol.survival = new int[] { 5, 6, 7 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.25f;
     }
 
@@ -100,7 +102,7 @@ public static class Presets
     {
         gol.birth = new int[] { 5 };
         gol.survival = new int[] { 4, 5 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.22f;
     }
 
@@ -108,7 +110,7 @@ public static class Presets
     {
         gol.birth = new int[] { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
         gol.survival = new int[] { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.2675f;
     }
 
@@ -116,7 +118,7 @@ public static class Presets
     {
         gol.birth = new int[] { 5 };
         gol.survival = new int[] { 4, 7 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.2f;
     }
 
@@ -124,7 +126,7 @@ public static class Presets
     {
         gol.birth = new int[] { 7, 8 };
         gol.survival = new int[] { 5, 6, 7, 8 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.2f;
     }
 
@@ -132,7 +134,7 @@ public static class Presets
     {
         gol.birth = new int[] { 5 };
         gol.survival = new int[] { 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.05f;
     }
 
@@ -140,7 +142,7 @@ public static class Presets
     {
         gol.birth = new int[] { 14, 15, 16, 17, 18, 19 };
         gol.survival = new int[] { 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.5f;
     }
 
@@ -148,7 +150,7 @@ public static class Presets
     {
         gol.birth = new int[] { 4 };
         gol.survival = new int[] { 5, 6 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.025f;
     }
 
@@ -156,7 +158,7 @@ public static class Presets
     {
         gol.birth = new int[] { 7, 8 };
         gol.survival = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.05f;
     }
 
@@ -164,7 +166,7 @@ public static class Presets
     {
         gol.birth = new int[] { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25 };
         gol.survival = new int[] { 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.0001f;
     }
 
@@ -172,7 +174,7 @@ public static class Presets
     {
         gol.birth = new int[] { 21, 22, 23 };
         gol.survival = new int[] { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 };
-        gol.wrap = false;
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.3f;
     }
 
@@ -180,15 +182,14 @@ public static class Presets
     {
         gol.birth = new int[] { 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63 };
         gol.survival = new int[] { 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80 };
-        gol.wrap = true;
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.5f;
     }
 
     public static void SimpleGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
     {
         gol.ConwayRules();
-        gol.SetDimensions(xAxis, 20, yAxis, 15);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -20, yAxis, -15);
 
         gol.Clear();
 
@@ -203,8 +204,7 @@ public static class Presets
     public static void SpaceShips(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
     {
         gol.ConwayRules();
-        gol.SetDimensions(xAxis, 20, yAxis, 15);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -20, yAxis, 15);
 
         gol.Clear();
 
@@ -381,8 +381,7 @@ public static class Presets
     public static void Fredkin64(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
     {
         gol.FredkinRules();
-        gol.SetDimensions(xAxis, 128, yAxis, 128);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -128, yAxis, -128);
 
         gol.Randomize();
     }
@@ -390,8 +389,7 @@ public static class Presets
     public static void MorleyGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
     {
         gol.MorleyRules();
-        gol.SetDimensions(xAxis, 128, yAxis, 72);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -128, yAxis, -72);
 
         gol.Clear();
 
@@ -407,8 +405,7 @@ public static class Presets
     public static void MorleyLargeGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1)
     {
         gol.MorleyRules();
-        gol.SetDimensions(xAxis, 250, yAxis, 50);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -250, yAxis, 50);
 
         gol.Clear();
 
@@ -432,8 +429,7 @@ public static class Presets
     public static void SimpleGlider3D(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
     {
         gol.Bays5766Rules();
-        gol.SetDimensions(xAxis, 20, yAxis, 15, zAxis, 4);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -20, yAxis, -15, zAxis, 4);
 
         gol.Clear();
 
@@ -453,8 +449,7 @@ public static class Presets
     public static void Glider4555(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
     {
         gol.Bays4555Rules();
-        gol.SetDimensions(xAxis, 15, yAxis, 20, zAxis, 15);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -15, yAxis, -20, zAxis, -15);
 
         gol.Clear();
 
@@ -485,8 +480,7 @@ public static class Presets
     public static void GliderB5S47(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
     {
         gol.BaysB5S47Rules();
-        gol.SetDimensions(xAxis, 20, yAxis, 20, zAxis, 8);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, -20, yAxis, 20, zAxis, 8);
 
         gol.Clear();
 
@@ -565,8 +559,7 @@ public static class Presets
     public static void EvansGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1, int zAxis = 2)
     {
         gol.EvansRules();
-        gol.SetDimensions(xAxis, 5, yAxis, 16, zAxis, 5);
-        gol.wrap = true;
+        gol.SetDimensions(xAxis, 5, yAxis, -16, zAxis, 5);
 
         gol.Clear();
 
@@ -583,7 +576,7 @@ public static class Presets
     {
         gol.Bays5766Rules();
         int iterations = 4;
-        gol.SetDimensions(xAxis, 17, yAxis, 6, zAxis, iterations * 6);
+        gol.SetDimensions(xAxis, -17, yAxis, 6, zAxis, iterations * -6);
         
         gol.Clear();
 
@@ -618,7 +611,6 @@ public static class Presets
     {
         gol.Bays5766Rules();
         gol.SetDimensions(xAxis, 174, yAxis, 222, zAxis, 2);
-        gol.wrap = false;
 
         gol.Clear();
 

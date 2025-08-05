@@ -1,3 +1,4 @@
+﻿using System;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -34,14 +35,18 @@ public class UIRoot : MonoBehaviour
         if (canvas.enabled)
         {
             StringBuilder sb = new StringBuilder();
+            string xString = ParseDimension(gameBehaviour.game.dimensions.x);
+            string yString = ParseDimension(gameBehaviour.game.dimensions.y);
+            string zString = ParseDimension(gameBehaviour.game.dimensions.z);
+            string wString = ParseDimension(gameBehaviour.game.dimensions.w);
             sb.Append("Dimensions: ")
-            .Append(gameBehaviour.game.dimensions.x.ToString("###,##0"))
+            .Append(xString)
             .Append("x")
-            .Append(gameBehaviour.game.dimensions.y.ToString("###,##0"))
+            .Append(yString)
             .Append("x")
-            .Append(gameBehaviour.game.dimensions.z.ToString("###,##0"))
+            .Append(zString)
             .Append("x")
-            .Append(gameBehaviour.game.dimensions.w.ToString("###,##0"))
+            .Append(wString)
             .Append("\nCells in world: ")
             .Append(gameBehaviour.game.numCells.ToString("###,##0"))
             .Append("\nAlive: ")
@@ -53,9 +58,7 @@ public class UIRoot : MonoBehaviour
             .Append("\nRules:\n B")
             .Append(string.Join(',', gameBehaviour.game.birth))
             .Append("\n S")
-            .Append(string.Join(',', gameBehaviour.game.survival))
-            .Append("\n Wrapping: ")
-            .Append(gameBehaviour.game.wrap ? "Yes" : "No");
+            .Append(string.Join(',', gameBehaviour.game.survival));
 
             if (debug)
             {
@@ -86,6 +89,11 @@ public class UIRoot : MonoBehaviour
         {
             canvas.enabled = !canvas.enabled;
         }
+    }
+
+    private string ParseDimension(int dim)
+    {
+        return dim < 0 ? Math.Abs(dim).ToString("###,##0") + "∞" : dim.ToString("###,##0");
     }
 
     public void UpdateStates()
