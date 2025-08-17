@@ -170,6 +170,14 @@ public static class Presets
         gol.initialPercentAlive = 0.0001f;
     }
 
+    public static void B1215S8163DRules(this GameOfLife gol)
+    {
+        gol.birth = new int[] { 12, 13, 14, 15 };
+        gol.survival = new int[] { 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), Math.Abs(gol.dimensions.w));
+        gol.initialPercentAlive = 0.4f;
+    }
+
     public static void B2123S10224DRules(this GameOfLife gol)
     {
         gol.birth = new int[] { 21, 22, 23 };
@@ -184,6 +192,22 @@ public static class Presets
         gol.survival = new int[] { 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80 };
         gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
         gol.initialPercentAlive = 0.5f;
+    }
+
+    public static void B2223S14244DRules(this GameOfLife gol)
+    {
+        gol.birth = new int[] { 22, 23 };
+        gol.survival = new int[] { 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 };
+        gol.dimensions = new GameOfLife.Vector4i(-Math.Abs(gol.dimensions.x), -Math.Abs(gol.dimensions.y), -Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
+        gol.initialPercentAlive = 0.33f;
+    }
+
+    public static void B2227S16284DRules(this GameOfLife gol)
+    {
+        gol.birth = new int[] { 22, 23, 24, 25, 26, 27 };
+        gol.survival = new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28 };
+        gol.dimensions = new GameOfLife.Vector4i(Math.Abs(gol.dimensions.x), Math.Abs(gol.dimensions.y), Math.Abs(gol.dimensions.z), -Math.Abs(gol.dimensions.w));
+        gol.initialPercentAlive = 0.2f;
     }
 
     public static void SimpleGlider(this GameOfLife gol, int xAxis = 0, int yAxis = 1)

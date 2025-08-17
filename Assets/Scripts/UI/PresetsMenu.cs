@@ -137,18 +137,21 @@ public class PresetsMenu : MonoBehaviour
     public void OnNew2DClicked()
     {
         root.gameBehaviour.Resize(64, 64, 1, 1);
+        root.gameBehaviour.RecenterCamera();
         root.gameBehaviour.Randomize();
     }
 
     public void OnNew3DClicked()
     {
         root.gameBehaviour.Resize(32, 32, 32, 1);
+        root.gameBehaviour.RecenterCamera();
         root.gameBehaviour.Randomize();
     }
 
     public void OnNew4DClicked()
     {
         root.gameBehaviour.Resize(12, 12, 12, 12);
+        root.gameBehaviour.RecenterCamera();
         root.gameBehaviour.Randomize();
     }
 
@@ -278,6 +281,12 @@ public class PresetsMenu : MonoBehaviour
         HideMenuAndDoUpdates();
     }
 
+    public void OnB1215S8163DClicked()
+    {
+        root.gameBehaviour.game.B1215S8163DRules();
+        HideMenuAndDoUpdates();
+    }
+
     public void OnB2123S10224DClicked()
     {
         root.gameBehaviour.game.B2123S10224DRules();
@@ -287,6 +296,18 @@ public class PresetsMenu : MonoBehaviour
     public void OnB4163S40804DClicked()
     {
         root.gameBehaviour.game.B4163S40804DRules();
+        HideMenuAndDoUpdates();
+    }
+
+    public void OnB2223S14244DClicked()
+    {
+        root.gameBehaviour.game.B2223S14244DRules();
+        HideMenuAndDoUpdates();
+    }
+
+    public void OnB2227S16284DClicked()
+    {
+        root.gameBehaviour.game.B2227S16284DRules();
         HideMenuAndDoUpdates();
     }
 
