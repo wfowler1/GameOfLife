@@ -7,6 +7,7 @@ public class CameraControl : MonoBehaviour
     public Vector3 target = Vector3.zero;
     public float sensitivity = 1f;
     public float distance = 25f;
+    public float movementSpeed = 30;
 
     /// <summary>
     /// Start is called before the first frame update
@@ -43,7 +44,37 @@ public class CameraControl : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        
+
+        Vector3 movement = Vector3.zero;
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            movement += transform.forward;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            movement -= transform.forward;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            movement += transform.right;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            movement -= transform.right;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            movement += transform.up;
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            movement -= transform.up;
+        }
+
+        movement = movement.normalized * movementSpeed * Time.deltaTime * (Input.GetKey(KeyCode.LeftShift) ? 2 : 1);
+        target += movement;
+
         transform.position = target;
         transform.rotation = Quaternion.identity;
         transform.Rotate(Vector3.up, yaw, Space.Self);
